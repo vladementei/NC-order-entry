@@ -4,3 +4,8 @@ arr.forEach((value => {
   sum += value;
 }));
 console.log(sum);
+sum = 0;
+for(let elem of arr){
+  sum += elem;
+}
+console.log(sum);
