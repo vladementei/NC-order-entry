@@ -1,12 +1,9 @@
 //7) написать рекурсивную функцию выводящую в консоль ряд Фибоначчи. Последнее число должно быть меньше 18000.
-function fibonacci(n) {
-  if(n < 2){
-    return 1;
+function fibonacci(first, second, limit) {
+  console.log(first);
+  if (limit <= second) {
+    return;
   }
-  return fibonacci(n-1) + fibonacci(n - 2);
+  fibonacci(second,first + second, limit);
 }
-
-for(let i = 0, last = 0; last < 18000; i++){
-  console.log(last);
-  last = fibonacci(i);
-}
+fibonacci(0,1,18000);
