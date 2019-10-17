@@ -1,3 +1,4 @@
+//9) дана строка str = 'var_text_hello'. Привети к виду 'varTextHello'.
 function removeAndUp(str){
   let arr = str.split("_");
   let answer = arr[0];
@@ -5,7 +6,7 @@ function removeAndUp(str){
     answer += (arr[i][0].toUpperCase());
     answer += (arr[i]).substring(1, arr[i].length);
   }
-  return answer
+  return answer;
 }
 let str = 'var_text_hello';
 console.log(removeAndUp(str));

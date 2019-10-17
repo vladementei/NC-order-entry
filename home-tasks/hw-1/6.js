@@ -1,3 +1,4 @@
+//6) написать пузырьковую сортировку
 let arr = [3, -2, 6, 1, 3, 30, -8, 1];
 for(let i = 0; i < arr.length - 1; i++){
   let wasSwap = false;
