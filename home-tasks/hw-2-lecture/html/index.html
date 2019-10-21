@@ -243,4 +243,20 @@
         </div>
     </footer>
 </body>
+<script>
+  let current = 0;
+  function printDom(node) {
+    if(node.nodeType === document.ELEMENT_NODE) {
+      current++;
+      console.log("\t".repeat(current) + node.nodeName);
+      if (node.hasChildNodes()) {
+        for (let elem of node.childNodes) {
+          printDom(elem);
+        }
+      }
+      current--;
+    }
+  }
+  printDom(document.documentElement);
+</script>
 </html>
