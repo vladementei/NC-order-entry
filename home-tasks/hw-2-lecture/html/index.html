@@ -248,7 +248,7 @@
   function printDom(node) {
     if (node.nodeType === document.ELEMENT_NODE) {
       current++;
-      console.log('\t'.repeat(current) + node.nodeName);
+      console.log(' '.repeat(current * 2) + node.nodeName);
       if (node.hasChildNodes()) {
         for (let elem of node.childNodes) {
           printDom(elem);
@@ -261,36 +261,38 @@
   printDom(document.documentElement);
 </script>
 <script>
-    const parents = [];
-    function getAllNodeParents(node) {
-      if(node.nodeType === document.ELEMENT_NODE) {
-        parents.push(node);
-        getAllNodeParents(node.parentNode);
-      }
-    }
+  const parents = [];
+  const aNode = document.getElementById('netcracker-a-id');
 
-    function eventFunction(event){
-      if(event.target === document.getElementById("netcracker-a-id")){//запрет перехода по этой ссылке
-        event.preventDefault()
-      }
-      if(Math.random() * 100 > 90){
-        event.stopPropagation();
-        console.log("stop propagation!");
-      }else {
-        console.log("{target: \"" + event.target.nodeName + "\", currentTarget: \"" + event.currentTarget.nodeName + "\"}");
-      }
+  function getAllNodeParents(node) {
+    if (node.nodeType === document.ELEMENT_NODE) {
+      parents.push(node);
+      getAllNodeParents(node.parentNode);
     }
+  }
 
-    document.getElementById("netcracker-a-id").addEventListener('click', (event) => {
+  function eventFunction(event) {
+    if (event.target === aNode) {//запрет перехода по этой ссылке
+      event.preventDefault();
+    }
+    if (Math.random() * 100 > 90) {
+      event.stopPropagation();
+      console.log('stop propagation!');
+    } else {
+      console.log('{target: "' + event.target.nodeName + '", currentTarget: "' + event.currentTarget.nodeName + '"}');
+    }
+  }
+
+  aNode.addEventListener('click', (event) => {
       eventFunction(event);
-      document.getElementById("netcracker-a-id").style.color = '#'+(Math.random()*0xFFFFFF<<0).toString(16);
-      document.getElementsByTagName('body')[0].style.backgroundColor = '#'+(Math.random()*0xFFFFFF<<0).toString(16);
+      aNode.style.color = '#' + (Math.random() * 0xFFFFFF << 0).toString(16);
+      document.getElementsByTagName('body')[0].style.backgroundColor = '#' + (Math.random() * 0xFFFFFF << 0).toString(16);
     }, false);
 
-    getAllNodeParents(document.getElementById("netcracker-a-id").parentNode);
-    for(let elem of parents){
-      elem.addEventListener('click', (event) => eventFunction(event), false);// всплытие
-      elem.addEventListener('click', (event) => eventFunction(event), true);// погружение
-    }
+  getAllNodeParents(aNode.parentNode);
+  for (let elem of parents) {
+    elem.addEventListener('click', (event) => eventFunction(event), false);// всплытие
+    elem.addEventListener('click', (event) => eventFunction(event), true);// погружение
+  }
 </script>
 </html>
