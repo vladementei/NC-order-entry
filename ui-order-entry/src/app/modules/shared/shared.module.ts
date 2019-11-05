@@ -9,24 +9,21 @@ const ngCoreModules = [
   ReactiveFormsModule
 ];
 
-const materialModules = [];
+const materialModules = [
+  MatFormFieldModule,
+  MatInputModule,
+  MatCardModule,
+  MatButtonModule
+];
 
 @NgModule({
   imports: [
     ...ngCoreModules,
-    ...materialModules,
-    MatFormFieldModule,
-    MatInputModule,
-    MatCardModule,
-    MatButtonModule
+    ...materialModules
   ],
   exports: [
     ...ngCoreModules,
-    ...materialModules,
-    MatFormFieldModule,
-    MatInputModule,
-    MatCardModule,
-    MatButtonModule
+    ...materialModules
   ]
 })
 export class SharedModule {}
