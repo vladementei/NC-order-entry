@@ -1,7 +1,6 @@
 <router-outlet></router-outlet>
-<div *ngIf="offersList$ | async as offersList">
+<div class="offers" *ngIf="offersList$ | async as offersList">
   <app-offer *ngFor="let offer of offersList" [id]="offer.id" [title]="offer.title"
              [description]="offer.description" [price]="offer.price" [photo]="offer.photo">
-
   </app-offer>
 </div>

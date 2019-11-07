@@ -48,6 +48,55 @@
       "description":"Android, экран 5.7\" OLED (1080x2280), Qualcomm Snapdragon 855, ОЗУ 6 ГБ, флэш-память 64 ГБ, камера 12.2 Мп, аккумулятор 2800 мАч, 1 SIM",
       "price":2150,
       "photo":"https://content2.onliner.by/catalog/device/header/26db8d966054e6a97eadd18c03d7d02f.jpeg"
+    },
+    {
+      "id":8,
+      "title":"HONOR 8X 4GB/64GB JSN-L22 (черный)",
+      "description":"Android, экран 6.5\" IPS (1080x2340), HiSilicon Kirin 710, ОЗУ 4 ГБ, флэш-память 64 ГБ, карты памяти, камера 20 Мп, аккумулятор 3750 мАч, 2 SIM",
+      "price":406,
+      "photo":"https://content2.onliner.by/catalog/device/header/0d6b756e182e33acdb3f9050cfed1d8b.jpeg"
+    },
+    {
+      "id":9,
+      "title":"Nokia 7.2 4GB/64GB (черный)",
+      "description":"Android, экран 6.3\" IPS (1080x2280), Qualcomm Snapdragon 660 MSM8956 Plus, ОЗУ 4 ГБ, флэш-память 64 ГБ, карты памяти, камера 48 Мп, аккумулятор 3500 мАч, 2 SIM",
+      "price":594.07,
+      "photo":"https://content2.onliner.by/catalog/device/header/80a6607684e62196704e49ceb76caef1.jpeg"
+    },
+    {
+      "id":10,
+      "title":"Sony Xperia XA2 Plus 6GB/64GB (черный)",
+      "description":"Android, экран 6\" IPS (1080x2160), Qualcomm Snapdragon 630, ОЗУ 6 ГБ, флэш-память 64 ГБ, карты памяти, камера 23 Мп, аккумулятор 3580 мАч, 2 SIM",
+      "price":695,
+      "photo":"https://content2.onliner.by/catalog/device/header/c55431f4578ff00fcc794be66cfb5e2d.jpeg"
+    },
+    {
+      "id":11,
+      "title":"MEIZU Note 8 4GB/64GB (черный)",
+      "description":"Android, экран 5.99\" IPS (1080x2160), Qualcomm Snapdragon 632, ОЗУ 4 ГБ, флэш-память 64 ГБ, карты памяти, камера 12 Мп, аккумулятор 3600 мАч, 2 SIM",
+      "price":290,
+      "photo":"https://content2.onliner.by/catalog/device/header/e5eace36f76b61b55e28ea6d38195b64.jpeg"
+    },
+    {
+      "id":12,
+      "title":"Nokia 106 (2018) (темно-серый)",
+      "description":"экран 1.8\" TFT (120x160), ОЗУ 4 Мб, флэш-память 4 Мб, аккумулятор 800 мАч, 2 SIM",
+      "price":46.12,
+      "photo":"https://content2.onliner.by/catalog/device/header/4c67251344feedbf4c221de9ef93507b.jpeg"
+    },
+    {
+      "id":13,
+      "title":"Samsung Galaxy Fold F900F (серебристый)",
+      "description":"Android, экран 7.3\" AMOLED (1536x2152), Qualcomm Snapdragon 855, ОЗУ 12 ГБ, флэш-память 512 ГБ, камера 12 Мп, аккумулятор 4380 мАч, 1 SIM",
+      "price":7000,
+      "photo":"https://content2.onliner.by/catalog/device/header/939e595542f214b680cef0f575f29742.jpeg"
+    },
+    {
+      "id":14,
+      "title":"Samsung Galaxy S9 Dual SIM 64GB Exynos 9810",
+      "description":"Android, экран 5.8\" AMOLED (1440x2960), Exynos 9810, ОЗУ 4 ГБ, флэш-память 64 ГБ, карты памяти, камера 12 Мп, аккумулятор 3000 мАч, 2 SIM",
+      "price":1188,
+      "photo":"https://content2.onliner.by/catalog/device/header/198eab8de1166942eff6c394f2ca8980.jpeg"
     }
   ]
 }

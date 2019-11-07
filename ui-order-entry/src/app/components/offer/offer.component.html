@@ -1,17 +1,18 @@
-<mat-card class="card">
+<mat-card>
   <mat-card-header>
     <mat-card-title>{{this.title}}</mat-card-title>
   </mat-card-header>
+
   <img mat-card-image src="{{this.photo}}" alt="Photo not found">
+
   <mat-card-content>
     <p>{{this.description}}</p>
   </mat-card-content>
 
-
   <mat-card-footer>
     <p>Price {{this.price}} rub</p>
     <mat-card-actions>
-      <button mat-button type="button">Basket</button>
+      <button mat-button type="button"><img src="../../../assets/basket-img.png"/>Basket</button>
     </mat-card-actions>
   </mat-card-footer>
 </mat-card>
