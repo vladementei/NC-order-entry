@@ -1,4 +1,4 @@
-import {Component, Injectable, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 
 @Component({
   selector: 'app-root',
@@ -6,9 +6,6 @@ import {Component, Injectable, OnInit} from '@angular/core';
   styleUrls: ['./app.component.less']
 })
 
-@Injectable({
-  providedIn: 'root'
-})
 export class AppComponent implements OnInit {
   title = 'ui-order-entry';
   ngOnInit(): void {

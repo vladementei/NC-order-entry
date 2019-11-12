@@ -1,4 +1,4 @@
-import {Component, Injectable, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Observable} from 'rxjs';
 import {OfferModel} from '../../models/offer.model';
 import {HttpService} from './services/http-service.service';
@@ -9,12 +9,7 @@ import {HttpService} from './services/http-service.service';
   templateUrl: './wizard.component.html',
   styleUrls: ['./wizard.component.less']
 })
-
-@Injectable({
-  providedIn: 'root'
-})
 export class WizardComponent implements OnInit {
-  title = 'ui-order-entry';
   offersList$: Observable<OfferModel[]>;
   constructor(private http: HttpService) {
   }

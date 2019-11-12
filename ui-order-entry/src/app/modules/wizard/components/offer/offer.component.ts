@@ -7,17 +7,9 @@ import {OfferModel} from '../../../../models/offer.model';
   styleUrls: ['./offer.component.less']
 })
 
-export class OfferComponent implements OnInit, OfferModel {
+export class OfferComponent implements OnInit {
   @Input()
-  id: number;
-  @Input()
-  title: string;
-  @Input()
-  description: string;
-  @Input()
-  price: number;
-  @Input()
-  photo: string;
+  offer: OfferModel;
 
   constructor() {
   }
