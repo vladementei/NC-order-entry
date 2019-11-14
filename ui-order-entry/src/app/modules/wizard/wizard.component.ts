@@ -5,7 +5,7 @@ import {HttpService} from './services/http-service.service';
 
 
 @Component({
-  selector: 'app-root',
+  selector: 'app-wizard',
   templateUrl: './wizard.component.html',
   styleUrls: ['./wizard.component.less']
 })
