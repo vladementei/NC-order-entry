@@ -1,6 +1,6 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
-import {DialogData} from '../../models/dialog-data.model';
+import {DialogData, DialogType} from '../../models/dialog-data.model';
 
 @Component({
   selector: 'app-dialog',
@@ -13,8 +13,20 @@ export class DialogComponent implements OnInit {
   }
   ngOnInit(): void {
   }
+  isTypeSelected(): boolean {
+    return this.data.type !== undefined && this.data.type !== DialogType.none;
+  }
+  getImageUrl(): string {
+    switch (this.data.type) {
+      case DialogType.error:
+        return '../../../assets/error-img.png';
+      case DialogType.warning:
+        return '../../../assets/warning-img.png';
+      case DialogType.success:
+       return '../../../assets/success-img.png';
+    }
+  }
   close(): void {
     this.matDialogRef.close();
   }
-
 }

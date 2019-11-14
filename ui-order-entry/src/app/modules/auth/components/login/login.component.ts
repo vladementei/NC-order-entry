@@ -5,6 +5,7 @@ import {DialogComponent} from '../../../../components/dialog/dialog.component';
 import {AuthFormService} from '../../services/auth-form.service';
 import {MatDialog} from '@angular/material';
 import {Router} from '@angular/router';
+import {DialogType} from '../../../../models/dialog-data.model';
 
 @Component({
   selector: 'app-auth',
@@ -26,7 +27,7 @@ export class LoginComponent implements OnInit {
       password: this.formBuilder.control('', Validators.required)
     });
     // для перенаправления пользователя если он залогинен
-    // if (localStorage.getItem('login') != null) {
+    // if (localStorage.getItem('user_info') != null) {
     //   switch (JSON.parse(localStorage.getItem('login')).role) {
     //     case 'user':
     //       this.router.navigate(['wizard']);
@@ -42,8 +43,7 @@ export class LoginComponent implements OnInit {
     const user: UserModel = {email: answer.email, login: '', password: answer.password, role: ''};
     this.authService.loginUser(user)
       .then(response => {
-        console.log(response);
-        localStorage.setItem('login', JSON.stringify(response));
+        localStorage.setItem('user_info', JSON.stringify(response));
         switch (response.role) {
           case 'user':
             this.router.navigate(['wizard']);
@@ -55,8 +55,7 @@ export class LoginComponent implements OnInit {
       })
       .catch(error => {
         this.dialog.open(DialogComponent, {
-          width: '250px',
-          data: {message: error.toString()}
+          data: {message: error.toString(), type: DialogType.error}
         });
       });
   }

@@ -5,6 +5,7 @@ import {AuthFormService} from '../../services/auth-form.service';
 import {MatDialog} from '@angular/material';
 import {DialogComponent} from '../../../../components/dialog/dialog.component';
 import {Router} from '@angular/router';
+import {DialogType} from '../../../../models/dialog-data.model';
 
 @Component({
   selector: 'app-auth',
@@ -34,15 +35,13 @@ export class RegistrationComponent implements OnInit {
     this.authService.addUser(user)
       .then(response => {
         this.dialog.open(DialogComponent, {
-          width: '250px',
-          data: {message: 'Registration success, please log in'}
+          data: {message: 'Registration success, please log in', type: DialogType.success}
         });
         this.router.navigate(['auth/login']);
       })
       .catch(error => {
         this.dialog.open(DialogComponent, {
-          width: '250px',
-          data: {message: error.toString()}
+          data: {message: error.toString(), type: DialogType.error}
         });
       });
   }
