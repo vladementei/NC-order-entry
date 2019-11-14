@@ -1,5 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {UserModel} from '../../../../models/user.model';
+import {DialogComponent} from '../../../../components/dialog/dialog.component';
+import {AuthFormService} from '../../services/auth-form.service';
+import {MatDialog} from '@angular/material';
 
 @Component({
   selector: 'app-auth',
@@ -9,7 +13,7 @@ import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 
 export class LoginComponent implements OnInit {
   private loginFormGroup: FormGroup;
-  constructor(private formBuilder: FormBuilder) {
+  constructor(private formBuilder: FormBuilder, private authService: AuthFormService, private dialog: MatDialog) {
   }
 
   ngOnInit(): void {
@@ -19,7 +23,16 @@ export class LoginComponent implements OnInit {
     });
   }
   public onSubmit(): void {
-    console.log(this.loginFormGroup.value);
+    const answer = this.loginFormGroup.value;
+    const user: UserModel = {email: answer.email, login: '', password: answer.password, role: ''};
+    this.authService.loginUser(user)
+      .then(response => console.log(response))
+      .catch(error => {
+        this.dialog.open(DialogComponent, {
+          width: '250px',
+          data: {message: error.toString()}
+        });
+      });
   }
 
   getEmailError(elemName: string): string {

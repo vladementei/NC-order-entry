@@ -106,6 +106,13 @@
       "password": "123456",
       "role": "user",
       "id": 1
+    },
+    {
+      "email": "vladd@gmail.com",
+      "login": "sd",
+      "password": "dssdds",
+      "role": "user",
+      "id": 2
     }
   ]
 }
