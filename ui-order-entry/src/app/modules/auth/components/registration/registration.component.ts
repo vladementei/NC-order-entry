@@ -4,6 +4,7 @@ import {UserModel} from '../../../../models/user.model';
 import {AuthFormService} from '../../services/auth-form.service';
 import {MatDialog} from '@angular/material';
 import {DialogComponent} from '../../../../components/dialog/dialog.component';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-auth',
@@ -13,7 +14,10 @@ import {DialogComponent} from '../../../../components/dialog/dialog.component';
 
 export class RegistrationComponent implements OnInit {
   private registerFormGroup: FormGroup;
-  constructor(private formBuilder: FormBuilder, private authService: AuthFormService, private dialog: MatDialog) {
+  constructor(private formBuilder: FormBuilder,
+              private authService: AuthFormService,
+              private dialog: MatDialog,
+              private router: Router) {
   }
 
   ngOnInit(): void {
@@ -28,7 +32,13 @@ export class RegistrationComponent implements OnInit {
     const answer = this.registerFormGroup.value;
     const user: UserModel = {email: answer.email, login: answer.login, password: answer.password, role: 'user'};
     this.authService.addUser(user)
-      .then(response => console.log('success'))
+      .then(response => {
+        this.dialog.open(DialogComponent, {
+          width: '250px',
+          data: {message: 'Registration success, please log in'}
+        });
+        this.router.navigate(['auth/login']);
+      })
       .catch(error => {
         this.dialog.open(DialogComponent, {
           width: '250px',

@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {UserModel} from '../../../../models/user.model';
 import {DialogComponent} from '../../../../components/dialog/dialog.component';
 import {AuthFormService} from '../../services/auth-form.service';
@@ -25,6 +25,17 @@ export class LoginComponent implements OnInit {
       email: this.formBuilder.control('', [Validators.required, Validators.email]),
       password: this.formBuilder.control('', Validators.required)
     });
+    // для перенаправления пользователя если он залогинен
+    // if (localStorage.getItem('login') != null) {
+    //   switch (JSON.parse(localStorage.getItem('login')).role) {
+    //     case 'user':
+    //       this.router.navigate(['wizard']);
+    //       break;
+    //     case 'admin':
+    //       this.router.navigate(['admin']);
+    //       break;
+    //   }
+    // }
   }
   public onSubmit(): void {
     const answer = this.loginFormGroup.value;
@@ -32,6 +43,7 @@ export class LoginComponent implements OnInit {
     this.authService.loginUser(user)
       .then(response => {
         console.log(response);
+        localStorage.setItem('login', JSON.stringify(response));
         switch (response.role) {
           case 'user':
             this.router.navigate(['wizard']);
