@@ -4,6 +4,7 @@ import {UserModel} from '../../../../models/user.model';
 import {DialogComponent} from '../../../../components/dialog/dialog.component';
 import {AuthFormService} from '../../services/auth-form.service';
 import {MatDialog} from '@angular/material';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-auth',
@@ -13,7 +14,10 @@ import {MatDialog} from '@angular/material';
 
 export class LoginComponent implements OnInit {
   private loginFormGroup: FormGroup;
-  constructor(private formBuilder: FormBuilder, private authService: AuthFormService, private dialog: MatDialog) {
+  constructor(private formBuilder: FormBuilder,
+              private authService: AuthFormService,
+              private dialog: MatDialog,
+              private router: Router) {
   }
 
   ngOnInit(): void {
@@ -26,7 +30,17 @@ export class LoginComponent implements OnInit {
     const answer = this.loginFormGroup.value;
     const user: UserModel = {email: answer.email, login: '', password: answer.password, role: ''};
     this.authService.loginUser(user)
-      .then(response => console.log(response))
+      .then(response => {
+        console.log(response);
+        switch (response.role) {
+          case 'user':
+            this.router.navigate(['wizard']);
+            break;
+          case 'admin':
+            this.router.navigate(['admin']);
+            break;
+        }
+      })
       .catch(error => {
         this.dialog.open(DialogComponent, {
           width: '250px',

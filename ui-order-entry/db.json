@@ -101,18 +101,18 @@
   ],
   "users": [
     {
-      "email": "vlad@gmail.com",
-      "login": "vladd",
+      "email": "user@gmail.com",
+      "login": "user",
       "password": "123456",
       "role": "user",
       "id": 1
     },
     {
-      "email": "vladd@gmail.com",
-      "login": "sd",
-      "password": "dssdds",
-      "role": "user",
-      "id": 2
+      "email": "admin@gmail.com",
+      "login": "admin",
+      "password": "123456",
+      "role": "admin",
+      "id": 1
     }
   ]
 }
