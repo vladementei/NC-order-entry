@@ -1,5 +1,11 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {UserModel} from '../../../../models/user.model';
+import {AuthFormService} from '../../services/auth-form.service';
+import {MatDialog} from '@angular/material';
+import {DialogComponent} from '../../../../components/dialog/dialog.component';
+import {Router} from '@angular/router';
+import {DialogType} from '../../../../models/dialog-data.model';
 
 @Component({
   selector: 'app-auth',
@@ -9,7 +15,10 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 
 export class RegistrationComponent implements OnInit {
   private registerFormGroup: FormGroup;
-  constructor(private formBuilder: FormBuilder) {
+  constructor(private formBuilder: FormBuilder,
+              private authService: AuthFormService,
+              private dialog: MatDialog,
+              private router: Router) {
   }
 
   ngOnInit(): void {
@@ -21,7 +30,20 @@ export class RegistrationComponent implements OnInit {
   }
 
   public onSubmit(): void {
-    console.log(this.registerFormGroup.value);
+    const answer = this.registerFormGroup.value;
+    const user: UserModel = {email: answer.email, login: answer.login, password: answer.password, role: 'user'};
+    this.authService.addUser(user)
+      .then(response => {
+        this.dialog.open(DialogComponent, {
+          data: {message: 'Registration success, please log in', type: DialogType.success}
+        });
+        this.router.navigate(['auth/login']);
+      })
+      .catch(error => {
+        this.dialog.open(DialogComponent, {
+          data: {message: error.toString(), type: DialogType.error}
+        });
+      });
   }
 
   getEmailError(elemName: string): string {
