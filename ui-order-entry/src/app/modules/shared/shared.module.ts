@@ -3,6 +3,7 @@ import {ReactiveFormsModule} from '@angular/forms';
 import {NgModule} from '@angular/core';
 import {MatButtonModule, MatCardModule, MatDialogModule, MatFormFieldModule, MatInputModule} from '@angular/material';
 import {DialogComponent} from '../../components/dialog/dialog.component';
+import {RoleGuard} from '../../guards/role.guard';
 
 
 const ngCoreModules = [
@@ -27,6 +28,7 @@ const materialModules = [
     ...ngCoreModules,
     ...materialModules
   ],
+  providers: [RoleGuard],
   declarations: [DialogComponent],
   entryComponents: [DialogComponent]
 })

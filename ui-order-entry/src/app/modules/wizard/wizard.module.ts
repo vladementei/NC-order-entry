@@ -3,10 +3,11 @@ import {RouterModule, Routes} from '@angular/router';
 import {SharedModule} from '../shared/shared.module';
 import {WizardComponent} from './wizard.component';
 import {OfferComponent} from './components/offer/offer.component';
+import {RoleGuard} from '../../guards/role.guard';
 
 const routes: Routes = [
   {
-    path: '', component: WizardComponent,
+    path: '', component: WizardComponent, canActivate: [RoleGuard]
   },
 ];
 
