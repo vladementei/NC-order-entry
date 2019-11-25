@@ -1,4 +1,9 @@
-<div class="offers" *ngIf="offersList$ | async as offersList">
-  <app-offer *ngFor="let offer of offersList" [offer]="offer">
-  </app-offer>
+<div class="wizard-container" *ngIf="offersFromServer">
+  <div class="filters">
+    <app-filter [offersFromServer]="offersFromServer"></app-filter>
+  </div>
+  <div class="offers">
+    <app-offer *ngFor="let offer of filteredOffersFromServer" [offer]="offer">
+    </app-offer>
+  </div>
 </div>
