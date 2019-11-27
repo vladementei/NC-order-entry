@@ -5,6 +5,8 @@ import {FormBuilder, FormGroup} from '@angular/forms';
 import {takeUntil} from 'rxjs/operators';
 import {RxUnsubscribe} from '../../classes/rx-unsubscribe';
 import {FilteredOffersService} from './services/filtered-offers-service.service';
+import {BehaviorSubject, Observable, Subject} from 'rxjs';
+import {LoaderService} from '../../services/loader-service.service';
 
 
 @Component({
@@ -16,10 +18,13 @@ export class WizardComponent extends RxUnsubscribe implements OnInit {
   form: FormGroup;
   offersFromServer: OfferModel[];
   filteredOffersFromServer;
-  constructor(private http: HttpService, private formBuilder: FormBuilder, private service: FilteredOffersService) {
+  isLoading: Observable<boolean> = this.loaderService.isLoading;
+  constructor(private http: HttpService, private formBuilder: FormBuilder, private service: FilteredOffersService,
+              private loaderService: LoaderService) {
     super();
   }
   ngOnInit(): void {
+    this.isLoading.subscribe();
     this.http.getOffers()
       .pipe(
         takeUntil((this.destroy$))
