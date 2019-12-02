@@ -14,6 +14,7 @@ import {DialogComponent} from '../../components/dialog/dialog.component';
 import {RoleGuard} from '../../guards/role.guard';
 import {TitleFilterPipe} from './pipes/title-filter.pipe';
 import {FilterComponent} from './components/filter/filter.component';
+import {OfferComponent} from './components/offer/offer.component';
 
 
 const ngCoreModules = [
@@ -41,13 +42,15 @@ const materialModules = [
     ...ngCoreModules,
     ...materialModules,
     FilterComponent,
-    TitleFilterPipe
+    TitleFilterPipe,
+    OfferComponent
   ],
   providers: [RoleGuard],
   declarations: [
     DialogComponent,
     FilterComponent,
-    TitleFilterPipe
+    TitleFilterPipe,
+    OfferComponent
   ],
   entryComponents: [DialogComponent]
 })

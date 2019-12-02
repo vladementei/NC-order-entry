@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {OfferModel} from '../../models/offer.model';
-import {HttpService} from './services/http-service.service';
+import {HttpService} from '../shared/services/http-service.service';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {takeUntil} from 'rxjs/operators';
 import {RxUnsubscribe} from '../../classes/rx-unsubscribe';
