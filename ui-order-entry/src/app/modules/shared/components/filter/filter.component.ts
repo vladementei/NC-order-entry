@@ -1,8 +1,8 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {OfferModel} from '../../../../models/offer.model';
-import {FilteredOffersService} from '../../services/filtered-offers-service.service';
 import {TitleFilterPipe} from '../../pipes/title-filter.pipe';
+import {FilteredOffersService} from '../../services/filtered-offers-service.service';
 
 @Component({
   selector: 'app-filter',

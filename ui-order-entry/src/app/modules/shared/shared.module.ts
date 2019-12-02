@@ -12,6 +12,8 @@ import {
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {DialogComponent} from '../../components/dialog/dialog.component';
 import {RoleGuard} from '../../guards/role.guard';
+import {TitleFilterPipe} from './pipes/title-filter.pipe';
+import {FilterComponent} from './components/filter/filter.component';
 
 
 const ngCoreModules = [
@@ -37,10 +39,16 @@ const materialModules = [
   ],
   exports: [
     ...ngCoreModules,
-    ...materialModules
+    ...materialModules,
+    FilterComponent,
+    TitleFilterPipe
   ],
   providers: [RoleGuard],
-  declarations: [DialogComponent],
+  declarations: [
+    DialogComponent,
+    FilterComponent,
+    TitleFilterPipe
+  ],
   entryComponents: [DialogComponent]
 })
 export class SharedModule {}

@@ -4,9 +4,9 @@ import {HttpService} from './services/http-service.service';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {takeUntil} from 'rxjs/operators';
 import {RxUnsubscribe} from '../../classes/rx-unsubscribe';
-import {FilteredOffersService} from './services/filtered-offers-service.service';
-import {BehaviorSubject, Observable, Subject} from 'rxjs';
+import {Observable} from 'rxjs';
 import {LoaderService} from '../../services/loader-service.service';
+import {FilteredOffersService} from '../shared/services/filtered-offers-service.service';
 
 
 @Component({

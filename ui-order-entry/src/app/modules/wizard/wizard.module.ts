@@ -4,8 +4,6 @@ import {SharedModule} from '../shared/shared.module';
 import {WizardComponent} from './wizard.component';
 import {OfferComponent} from './components/offer/offer.component';
 import {RoleGuard} from '../../guards/role.guard';
-import {TitleFilterPipe} from './pipes/title-filter.pipe';
-import {FilterComponent} from './components/filter/filter.component';
 
 const routes: Routes = [
   {
@@ -18,8 +16,6 @@ const routes: Routes = [
   declarations: [
     WizardComponent,
     OfferComponent,
-    FilterComponent,
-    TitleFilterPipe
   ],
   imports: [
     RouterModule.forChild(routes),
