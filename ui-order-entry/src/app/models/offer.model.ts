@@ -4,5 +4,5 @@ export interface OfferModel {
   description: string;
   price: number;
   photo: string;
-  manufacturer: string;
+  category: {category: string, id: number};
 }

@@ -8,7 +8,8 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "run-server": "json-server --watch db.json"
+    "run-server": "json-server --watch db.json",
+    "start-proxy": "ng serve --proxy-config proxy.config.json"
   },
   "private": true,
   "dependencies": {
