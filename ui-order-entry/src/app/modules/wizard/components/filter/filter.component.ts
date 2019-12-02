@@ -40,7 +40,7 @@ export class FilterComponent implements OnInit {
   }
 
   submit(): void {
-    let checkedItems: string[] = this.form.value.manufacturer
+    let checkedItems: string[] = this.form.value.category
       .map((value, i) => value ? this.categoryList[i] : null)
       .filter(v => v !== null);
     const minPrice: number = this.form.get('minPrice').value || 0;

@@ -15,7 +15,6 @@
       "price": 799,
       "photo": "https://content2.onliner.by/catalog/device/header/e98cb07ad9bc97fc000a6c41b49474cc.jpeg",
       "manufacturer": "honor"
-
     },
     {
       "id": 3,
@@ -48,7 +47,6 @@
       "price": 1580,
       "photo": "https://content2.onliner.by/catalog/device/header/72fe584b86221112efc8dda98544811c.jpeg",
       "manufacturer": "one plus"
-
     },
     {
       "id": 7,
@@ -57,7 +55,6 @@
       "price": 2150,
       "photo": "https://content2.onliner.by/catalog/device/header/26db8d966054e6a97eadd18c03d7d02f.jpeg",
       "manufacturer": "google"
-
     },
     {
       "id": 8,
@@ -66,7 +63,6 @@
       "price": 406,
       "photo": "https://content2.onliner.by/catalog/device/header/0d6b756e182e33acdb3f9050cfed1d8b.jpeg",
       "manufacturer": "honor"
-
     },
     {
       "id": 9,
@@ -75,7 +71,6 @@
       "price": 594.07,
       "photo": "https://content2.onliner.by/catalog/device/header/80a6607684e62196704e49ceb76caef1.jpeg",
       "manufacturer": "nokia"
-
     },
     {
       "id": 10,
@@ -84,7 +79,6 @@
       "price": 695,
       "photo": "https://content2.onliner.by/catalog/device/header/c55431f4578ff00fcc794be66cfb5e2d.jpeg",
       "manufacturer": "sony"
-
     },
     {
       "id": 11,
@@ -93,7 +87,6 @@
       "price": 290,
       "photo": "https://content2.onliner.by/catalog/device/header/e5eace36f76b61b55e28ea6d38195b64.jpeg",
       "manufacturer": "meizu"
-
     },
     {
       "id": 12,
@@ -102,7 +95,6 @@
       "price": 46.12,
       "photo": "https://content2.onliner.by/catalog/device/header/4c67251344feedbf4c221de9ef93507b.jpeg",
       "manufacturer": "nokia"
-
     },
     {
       "id": 13,
@@ -111,7 +103,6 @@
       "price": 7000,
       "photo": "https://content2.onliner.by/catalog/device/header/939e595542f214b680cef0f575f29742.jpeg",
       "manufacturer": "samsung"
-
     },
     {
       "id": 14,
@@ -120,7 +111,6 @@
       "price": 1188,
       "photo": "https://content2.onliner.by/catalog/device/header/198eab8de1166942eff6c394f2ca8980.jpeg",
       "manufacturer": "samsung"
-
     }
   ],
   "users": [
@@ -137,6 +127,13 @@
       "password": "123456",
       "role": "admin",
       "id": 2
+    },
+    {
+      "email": "dima@gmail.com",
+      "login": "1",
+      "password": "123456",
+      "role": "user",
+      "id": 3
     }
   ]
 }

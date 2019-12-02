@@ -12,7 +12,7 @@ export class HttpService {
   }
 
   getOffers(): Observable<OfferModel[]> {
-    return this.http.get<OfferModel[]>('http://localhost:3000/offers');
+    return this.http.get<OfferModel[]>('/catalog/api/v1/offers');
   }
 
 }
