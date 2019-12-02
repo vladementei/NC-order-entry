@@ -1,4 +1,21 @@
 <mat-card>
+
+  <div class="menu" *ngIf="role === 'admin'">
+    <button mat-icon-button [matMenuTriggerFor]="menu">
+      <mat-icon>more_vert</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item (click)="modifyOffer()">
+        <mat-icon>build</mat-icon>
+        <span>Modify</span>
+      </button>
+      <button mat-menu-item (click)="deleteOffer()">
+        <mat-icon>delete</mat-icon>
+        <span>Delete</span>
+      </button>
+    </mat-menu>
+  </div>
+
   <mat-card-header>
     <mat-card-title>{{offer.title}}</mat-card-title>
   </mat-card-header>
@@ -11,8 +28,10 @@
 
   <mat-card-footer>
     <p>Price {{offer.price}} rub</p>
-    <mat-card-actions>
-      <button mat-button type="button"><img src="../../../../../assets/basket-img.png"/>Basket</button>
-    </mat-card-actions>
+    <div *ngIf="role === 'wizard'">
+      <mat-card-actions>
+        <button mat-button type="button"><img src="../../../../../assets/basket-img.png"/>Basket</button>
+      </mat-card-actions>
+    </div>
   </mat-card-footer>
 </mat-card>

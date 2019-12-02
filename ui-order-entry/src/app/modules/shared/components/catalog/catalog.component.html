@@ -8,7 +8,7 @@
       <app-filter [offersFromServer]="offersFromServer"></app-filter>
     </div>
     <div class="offers">
-      <app-offer *ngFor="let offer of filteredOffersFromServer" [offer]="offer">
+      <app-offer *ngFor="let offer of filteredOffersFromServer" [offer]="offer" [role]="role">
       </app-offer>
     </div>
   </div>

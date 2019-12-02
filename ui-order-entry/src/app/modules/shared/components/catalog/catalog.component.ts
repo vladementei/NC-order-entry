@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {takeUntil} from 'rxjs/operators';
 import {Observable} from 'rxjs';
@@ -19,11 +19,14 @@ export class CatalogComponent extends RxUnsubscribe implements OnInit {
   offersFromServer: OfferModel[];
   filteredOffersFromServer;
   isLoading: Observable<boolean> = this.loaderService.isLoading;
+  @Input()
+  role: string;
   constructor(private http: HttpService, private formBuilder: FormBuilder, private service: FilteredOffersService,
               private loaderService: LoaderService) {
     super();
   }
   ngOnInit(): void {
+    console.log(this.role);
     this.isLoading.subscribe();
     this.http.getOffers()
       .pipe(

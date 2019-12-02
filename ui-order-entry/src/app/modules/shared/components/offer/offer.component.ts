@@ -10,10 +10,20 @@ import {OfferModel} from '../../../../models/offer.model';
 export class OfferComponent implements OnInit {
   @Input()
   offer: OfferModel;
+  @Input()
+  role: string;
 
   constructor() {
   }
 
   ngOnInit(): void {
+  }
+
+  modifyOffer() {
+    console.log('modify ' + this.offer.id);
+  }
+
+  deleteOffer() {
+    console.log('delete' + this.offer.id);
   }
 }
