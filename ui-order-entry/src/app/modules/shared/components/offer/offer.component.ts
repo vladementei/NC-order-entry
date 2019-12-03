@@ -1,5 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {OfferModel} from '../../../../models/offer.model';
+import {HttpService} from '../../services/http-service.service';
 
 @Component({
   selector: 'app-offer',
@@ -13,7 +14,7 @@ export class OfferComponent implements OnInit {
   @Input()
   role: string;
 
-  constructor() {
+  constructor(private http: HttpService) {
   }
 
   ngOnInit(): void {
@@ -25,5 +26,6 @@ export class OfferComponent implements OnInit {
 
   deleteOffer() {
     console.log('delete' + this.offer.id);
+    this.http.deleteOffer(this.offer.id);
   }
 }
