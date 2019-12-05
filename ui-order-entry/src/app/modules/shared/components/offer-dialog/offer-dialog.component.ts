@@ -19,6 +19,7 @@ export class OfferDialogComponent implements OnInit {
   private offerFormGroup: FormGroup;
   private categoriesFromServer: CategoryModel[];
   private filteredCategories: Observable<CategoryModel[]>;
+  private offer: OfferModel;
 
   constructor(private formBuilder: FormBuilder,
               private http: HttpService,
@@ -27,16 +28,18 @@ export class OfferDialogComponent implements OnInit {
               @Inject(MAT_DIALOG_DATA) public model: OfferModel) {
   }
   ngOnInit(): void {
+    this.offer = {id: this.model.id, title: this.model.title, description: this.model.description,
+      price: this.model.price, photo: this.model.photo, category: this.model.category};
     this.offerFormGroup = this.formBuilder.group({
-      title: this.formBuilder.control(this.model.title, [Validators.required]),
-      photo: this.formBuilder.control(this.model.photo, [Validators.required]),
-      description: this.formBuilder.control(this.model.description, [Validators.required]),
-      price: this.formBuilder.control(this.model.price, [Validators.required, Validators.min(0)]),
+      title: this.formBuilder.control(this.offer.title, [Validators.required]),
+      photo: this.formBuilder.control(this.offer.photo, [Validators.required]),
+      description: this.formBuilder.control(this.offer.description, [Validators.required]),
+      price: this.formBuilder.control(this.offer.price, [Validators.required, Validators.min(0)]),
     });
-    this.offerFormGroup.get('title').valueChanges.subscribe(value => this.model.title = value);
-    this.offerFormGroup.get('photo').valueChanges.subscribe(value => this.model.photo = value);
-    this.offerFormGroup.get('description').valueChanges.subscribe(value => this.model.description = value);
-    this.offerFormGroup.get('price').valueChanges.subscribe(value => this.model.price = value);
+    this.offerFormGroup.get('title').valueChanges.subscribe(value => this.offer.title = value);
+    this.offerFormGroup.get('photo').valueChanges.subscribe(value => this.offer.photo = value);
+    this.offerFormGroup.get('description').valueChanges.subscribe(value => this.offer.description = value);
+    this.offerFormGroup.get('price').valueChanges.subscribe(value => this.offer.price = value);
     this.http.getCategories().subscribe((categoriesArray: CategoryModel[]) => {
       this.categoriesFromServer = categoriesArray;
       this.offerFormGroup.addControl('category', new FormControl());
@@ -48,14 +51,16 @@ export class OfferDialogComponent implements OnInit {
       ;
     });
   }
+  private toStringCategory(value: string|CategoryModel): string {
+    if (typeof value === 'string') {
+      return value.toLowerCase();
+    } else {
+      return value.category.toLowerCase();
+    }
+  }
 
   private filter(value: string|CategoryModel): CategoryModel[] {
-    let filterValue;
-    if (typeof value === 'string') {
-      filterValue = value.toLowerCase();
-    } else {
-      filterValue = value.category.toLowerCase();
-    }
+    const filterValue = this.toStringCategory(value);
     return this.categoriesFromServer.filter(category => category.category.toLowerCase().includes(filterValue));
   }
 
@@ -64,17 +69,19 @@ export class OfferDialogComponent implements OnInit {
   }
 
   saveOffer() {
-    let enteredCategory: string;
-    if (typeof this.offerFormGroup.get('category').value === 'string') {
-      console.log(this.offerFormGroup.get('category').value);
-      enteredCategory = this.offerFormGroup.get('category').value.toLowerCase();
-    } else {
-      enteredCategory = this.offerFormGroup.get('category').value.category.toLowerCase();
-    }
+    const enteredCategory = this.toStringCategory(this.offerFormGroup.get('category').value);
     const offerPotentialCategory = this.filter(this.offerFormGroup.get('category').value);
     if (offerPotentialCategory.length === 1 && offerPotentialCategory[0].category === enteredCategory.trim()) {
-      this.model.category = {category: offerPotentialCategory[0].category, id: offerPotentialCategory[0].id};
+      this.offer.category = {category: offerPotentialCategory[0].category, id: offerPotentialCategory[0].id};
       console.log(this.model);
+      this.model.id = this.offer.id;
+      this.model.title = this.offer.title;
+      this.model.description = this.offer.description;
+      this.model.photo = this.offer.photo;
+      this.model.price = this.offer.price;
+      this.model.category = this.offer.category;
+      // save to db
+      this.matDialogRef.close();
     } else if (offerPotentialCategory.length > 1) {
       this.dialog.open(DialogComponent, {
         data: {message: 'Category not selected', type: DialogType.error}
