@@ -32,6 +32,18 @@ export class HttpService {
     return this.offersSubject.asObservable();
   }
 
+  updateOffer(offer: OfferModel) {
+    this.http.put<OfferModel>('/catalog/api/v1/offers', offer).subscribe((offerRes: OfferModel) => {
+      if (offerRes.category.id !== offer.category.id) {
+        this.http.put<OfferModel>('/catalog/api/v1/offers/' + offerRes.id + '/category',
+          this.categories.find(category => category.id === offer.category.id)).subscribe((updatedOffer: OfferModel) => {
+          this.offers[this.offers.findIndex(of => of.id === updatedOffer.id)] = updatedOffer;
+        });
+      }
+      this.offers[this.offers.findIndex(of => of.id === offerRes.id)] = offerRes;
+    });
+  }
+
   deleteOffer(id: number): void {
     this.http.delete<void>('/catalog/api/v1/offers/' + id).subscribe(value => {
       this.offers = this.offers.filter(offer => offer.id !== id);

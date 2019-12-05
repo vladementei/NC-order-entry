@@ -42,7 +42,8 @@ export class OfferDialogComponent implements OnInit {
     this.offerFormGroup.get('price').valueChanges.subscribe(value => this.offer.price = value);
     this.http.getCategories().subscribe((categoriesArray: CategoryModel[]) => {
       this.categoriesFromServer = categoriesArray;
-      this.offerFormGroup.addControl('category', new FormControl());
+      console.log(this.offer);
+      this.offerFormGroup.addControl('category', this.formBuilder.control(this.offer.category, [Validators.required]));
       this.filteredCategories = this.offerFormGroup.get('category').valueChanges
         .pipe(
           startWith(''),
@@ -74,13 +75,13 @@ export class OfferDialogComponent implements OnInit {
     if (offerPotentialCategory.length === 1 && offerPotentialCategory[0].category === enteredCategory.trim()) {
       this.offer.category = {category: offerPotentialCategory[0].category, id: offerPotentialCategory[0].id};
       console.log(this.model);
-      this.model.id = this.offer.id;
-      this.model.title = this.offer.title;
-      this.model.description = this.offer.description;
-      this.model.photo = this.offer.photo;
-      this.model.price = this.offer.price;
-      this.model.category = this.offer.category;
-      // save to db
+      // this.model.id = this.offer.id;
+      // this.model.title = this.offer.title;
+      // this.model.description = this.offer.description;
+      // this.model.photo = this.offer.photo;
+      // this.model.price = this.offer.price;
+      // this.model.category = this.offer.category;
+      this.http.updateOffer(this.offer);
       this.matDialogRef.close();
     } else if (offerPotentialCategory.length > 1) {
       this.dialog.open(DialogComponent, {
