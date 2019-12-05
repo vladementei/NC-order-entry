@@ -1,6 +1,8 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {OfferModel} from '../../../../models/offer.model';
 import {HttpService} from '../../services/http-service.service';
+import {MatDialog} from '@angular/material';
+import {OfferDialogComponent} from '../offer-dialog/offer-dialog.component';
 
 @Component({
   selector: 'app-offer',
@@ -14,7 +16,7 @@ export class OfferComponent implements OnInit {
   @Input()
   role: string;
 
-  constructor(private http: HttpService) {
+  constructor(private http: HttpService, private dialog: MatDialog) {
   }
 
   ngOnInit(): void {
@@ -22,10 +24,19 @@ export class OfferComponent implements OnInit {
 
   modifyOffer() {
     console.log('modify ' + this.offer.id);
+    this.dialog.open(OfferDialogComponent, {
+      data: this.offer
+    });
   }
 
   deleteOffer() {
     console.log('delete' + this.offer.id);
     this.http.deleteOffer(this.offer.id);
+  }
+
+  addToBasket() {
+    if (this.role === 'wizard') {
+      console.log('add to basket ' + this.offer.id);
+    }
   }
 }

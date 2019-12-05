@@ -2,6 +2,7 @@ import {CommonModule} from '@angular/common';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {NgModule} from '@angular/core';
 import {
+  MatAutocompleteModule,
   MatButtonModule,
   MatCardModule,
   MatDialogModule,
@@ -16,6 +17,7 @@ import {TitleFilterPipe} from './pipes/title-filter.pipe';
 import {FilterComponent} from './components/filter/filter.component';
 import {OfferComponent} from './components/offer/offer.component';
 import {CatalogComponent} from './components/catalog/catalog.component';
+import {OfferDialogComponent} from './components/offer-dialog/offer-dialog.component';
 
 
 const ngCoreModules = [
@@ -33,7 +35,8 @@ const materialModules = [
   MatCheckboxModule,
   MatProgressSpinnerModule,
   MatMenuModule,
-  MatIconModule
+  MatIconModule,
+  MatAutocompleteModule
 ];
 
 @NgModule({
@@ -47,7 +50,8 @@ const materialModules = [
     FilterComponent,
     TitleFilterPipe,
     OfferComponent,
-    CatalogComponent
+    CatalogComponent,
+    OfferDialogComponent
   ],
   providers: [RoleGuard],
   declarations: [
@@ -55,8 +59,9 @@ const materialModules = [
     FilterComponent,
     TitleFilterPipe,
     OfferComponent,
-    CatalogComponent
+    CatalogComponent,
+    OfferDialogComponent
   ],
-  entryComponents: [DialogComponent]
+  entryComponents: [DialogComponent, OfferDialogComponent]
 })
 export class SharedModule {}
