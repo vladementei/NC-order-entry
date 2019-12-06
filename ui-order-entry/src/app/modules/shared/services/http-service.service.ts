@@ -31,8 +31,16 @@ export class HttpService {
     return this.http.put<OfferModel>('/catalog/api/v1/offers/' + id + '/category', category);
   }
 
+  updateCategoryName(category: CategoryModel): Observable<CategoryModel> {
+    return this.http.put<CategoryModel>('/catalog/api/v1/categories', category);
+  }
+
   deleteOffer(id: number): Observable<void> {
     return this.http.delete<void>('/catalog/api/v1/offers/' + id);
+  }
+
+  deleteCategory(id: number): Observable<void> {
+    return this.http.delete<void>('/catalog/api/v1/categories/' + id);
   }
 }
 
