@@ -7,6 +7,7 @@ import {OfferModel} from '../../../../models/offer.model';
 import {HttpService} from '../../services/http-service.service';
 import {FilteredOffersService} from '../../services/filtered-offers-service.service';
 import {LoaderService} from '../../../../services/loader-service.service';
+import {NavigationEnd, Router} from '@angular/router';
 
 
 @Component({
@@ -19,11 +20,24 @@ export class CatalogComponent extends RxUnsubscribe implements OnInit {
   offersFromServer: OfferModel[];
   filteredOffersFromServer;
   isLoading: Observable<boolean> = this.loaderService.isLoading;
+  routerSubscription: any;
+
   @Input()
   role: string;
   constructor(private http: HttpService, private formBuilder: FormBuilder, private service: FilteredOffersService,
-              private loaderService: LoaderService) {
+              private loaderService: LoaderService, private router: Router) {
     super();
+    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+    this.routerSubscription = this.router.events
+      .pipe(
+        takeUntil((this.destroy$))
+      )
+      .subscribe((event) => {
+      if (event instanceof NavigationEnd) {
+        // Trick the Router into believing it's last link wasn't previously loaded
+        this.router.navigated = false;
+      }
+    });
   }
   ngOnInit(): void {
     console.log(this.role);

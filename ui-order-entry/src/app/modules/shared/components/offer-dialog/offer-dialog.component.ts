@@ -1,7 +1,7 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material';
 import {OfferModel} from '../../../../models/offer.model';
-import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {CategoryModel} from '../../../../models/category.model';
 import {HttpService} from '../../services/http-service.service';
 import {Observable} from 'rxjs';
@@ -74,15 +74,22 @@ export class OfferDialogComponent implements OnInit {
     const offerPotentialCategory = this.filter(this.offerFormGroup.get('category').value);
     if (offerPotentialCategory.length === 1 && offerPotentialCategory[0].category === enteredCategory.trim()) {
       this.offer.category = {category: offerPotentialCategory[0].category, id: offerPotentialCategory[0].id};
-      console.log(this.model);
+      // console.log(this.model);
       // this.model.id = this.offer.id;
       // this.model.title = this.offer.title;
       // this.model.description = this.offer.description;
       // this.model.photo = this.offer.photo;
       // this.model.price = this.offer.price;
       // this.model.category = this.offer.category;
-      this.http.updateOffer(this.offer);
-      this.matDialogRef.close();
+      this.http.updateOffer(this.offer).subscribe(offer => {
+        console.log(offer);
+        this.http.updateOfferCategory(this.offer.id, {id: this.offer.category.id, category: this.offer.category.category, offers: []})
+          .subscribe(() => {
+          console.log(offer);
+          this.matDialogRef.close('updated');
+        });
+      });
+
     } else if (offerPotentialCategory.length > 1) {
       this.dialog.open(DialogComponent, {
         data: {message: 'Category not selected', type: DialogType.error}

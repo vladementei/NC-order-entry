@@ -8,10 +8,13 @@ import {finalize} from 'rxjs/operators';
 export class LoaderInterceptor implements HttpInterceptor {
   constructor(public loaderService: LoaderService) { }
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    this.loaderService.show();
-    console.log('loader interceptor');
-    return next.handle(req).pipe(
-      finalize(() => setTimeout(() => this.loaderService.hide(), 2000))
-    );
+    if (!req.url.includes('/categories')) {
+      this.loaderService.show();
+      console.log('loader interceptor');
+      return next.handle(req).pipe(
+        finalize(() => setTimeout(() => this.loaderService.hide(), 2000))
+      );
+    }
+    return next.handle(req);
   }
 }
