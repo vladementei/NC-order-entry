@@ -3,7 +3,6 @@ import {Observable, Subject} from 'rxjs';
 import {OfferModel} from '../../../models/offer.model';
 import {HttpClient} from '@angular/common/http';
 import {CategoryModel} from '../../../models/category.model';
-import {Router} from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -24,8 +23,11 @@ export class HttpService {
     return this.http.get<OfferModel[]>('/catalog/api/v1/offers');
   }
 
+  saveOffer(offer: OfferModel): Observable<OfferModel> {
+    return this.http.post<OfferModel>('/catalog/api/v1/offers', offer);
+  }
   updateOffer(offer: OfferModel): Observable<OfferModel> {
-      return this.http.put<OfferModel>('/catalog/api/v1/offers', offer);
+    return this.http.put<OfferModel>('/catalog/api/v1/offers', offer);
   }
   updateOfferCategory(id: number, category: CategoryModel): Observable<OfferModel> {
     return this.http.put<OfferModel>('/catalog/api/v1/offers/' + id + '/category', category);

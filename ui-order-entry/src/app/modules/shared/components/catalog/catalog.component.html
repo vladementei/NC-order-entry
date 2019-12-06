@@ -4,6 +4,18 @@
 </div>
 <div *ngIf="!(isLoading|async)">
   <div class="catalog-container" *ngIf="(offersFromServer)">
+    <div *ngIf="this.role === 'admin'">
+      <div class="create-offer">
+        <mat-card>
+          <mat-card-content>
+            <button mat-menu-item (click)="createOffer()">
+              <mat-icon>note_add</mat-icon>
+              <span>Add offer to catalog</span>
+            </button>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </div>
     <div class="filters">
       <app-filter [offersFromServer]="offersFromServer"></app-filter>
     </div>

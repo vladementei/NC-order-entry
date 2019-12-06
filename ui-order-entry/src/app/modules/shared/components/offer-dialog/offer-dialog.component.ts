@@ -81,14 +81,21 @@ export class OfferDialogComponent implements OnInit {
       // this.model.photo = this.offer.photo;
       // this.model.price = this.offer.price;
       // this.model.category = this.offer.category;
-      this.http.updateOffer(this.offer).subscribe(offer => {
-        console.log(offer);
-        this.http.updateOfferCategory(this.offer.id, {id: this.offer.category.id, category: this.offer.category.category, offers: []})
-          .subscribe(() => {
+      if (this.offer.id === 0) {
+        this.http.saveOffer(this.offer).subscribe(offer => {
           console.log(offer);
           this.matDialogRef.close('updated');
         });
-      });
+      } else {
+        this.http.updateOffer(this.offer).subscribe(offer => {
+          console.log(offer);
+          this.http.updateOfferCategory(this.offer.id, {id: this.offer.category.id, category: this.offer.category.category, offers: []})
+            .subscribe(() => {
+              console.log(offer);
+              this.matDialogRef.close('updated');
+            });
+        });
+      }
 
     } else if (offerPotentialCategory.length > 1) {
       this.dialog.open(DialogComponent, {

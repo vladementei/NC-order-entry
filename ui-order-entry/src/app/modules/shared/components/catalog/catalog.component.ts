@@ -8,6 +8,8 @@ import {HttpService} from '../../services/http-service.service';
 import {FilteredOffersService} from '../../services/filtered-offers-service.service';
 import {LoaderService} from '../../../../services/loader-service.service';
 import {NavigationEnd, Router} from '@angular/router';
+import {OfferDialogComponent} from '../offer-dialog/offer-dialog.component';
+import {MatDialog} from '@angular/material';
 
 
 @Component({
@@ -25,7 +27,7 @@ export class CatalogComponent extends RxUnsubscribe implements OnInit {
   @Input()
   role: string;
   constructor(private http: HttpService, private formBuilder: FormBuilder, private service: FilteredOffersService,
-              private loaderService: LoaderService, private router: Router) {
+              private loaderService: LoaderService, private router: Router, private dialog: MatDialog) {
     super();
     this.router.routeReuseStrategy.shouldReuseRoute = () => false;
     this.routerSubscription = this.router.events
@@ -57,5 +59,16 @@ export class CatalogComponent extends RxUnsubscribe implements OnInit {
         takeUntil((this.destroy$))
       )
       .subscribe(value => this.filteredOffersFromServer = value);
+  }
+  createOffer(): void {
+    console.log('create ');
+    this.dialog.open(OfferDialogComponent, {
+      data: {id: 0, title: '', description: '', photo: '', price: 0, category: {category: '', id: 0}}
+    }).afterClosed().subscribe(closeResponse => {
+      if (closeResponse === 'updated') {
+        console.log('call update');
+        this.router.navigate(['admin']);
+      }
+    });
   }
 }
