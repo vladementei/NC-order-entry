@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {Observable, Subject} from 'rxjs';
+import {Observable} from 'rxjs';
 import {OfferModel} from '../../../models/offer.model';
 import {HttpClient} from '@angular/common/http';
 import {CategoryModel} from '../../../models/category.model';
@@ -15,8 +15,12 @@ export class HttpService {
     return this.http.get<CategoryModel[]>('/catalog/api/v1/categories');
   }
 
-  getCategory(id: number): Observable<CategoryModel> {
+  getCategoryById(id: number): Observable<CategoryModel> {
     return this.http.get<CategoryModel>('/catalog/api/v1/categories/id/' + id);
+  }
+
+  getCategoryByName(name: string): Observable<CategoryModel> {
+    return this.http.get<CategoryModel>('/catalog/api/v1/categories/name/' + name)
   }
 
   getOffers(): Observable<OfferModel[]> {
@@ -25,6 +29,9 @@ export class HttpService {
 
   saveOffer(offer: OfferModel): Observable<OfferModel> {
     return this.http.post<OfferModel>('/catalog/api/v1/offers', offer);
+  }
+  saveCategory(category: CategoryModel): Observable<CategoryModel> {
+    return this.http.post<CategoryModel>('/catalog/api/v1/categories', category);
   }
   updateOffer(offer: OfferModel): Observable<OfferModel> {
     return this.http.put<OfferModel>('/catalog/api/v1/offers', offer);

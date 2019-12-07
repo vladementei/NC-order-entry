@@ -4,6 +4,16 @@
 </div>
 <div *ngIf="!(isLoading|async)">
   <div class="categories-container" *ngIf="(categoriesFromServer)">
+    <div class="create-category">
+      <mat-card>
+        <mat-card-content>
+          <button mat-menu-item (click)="createCategory()">
+            <mat-icon>note_add</mat-icon>
+            <span>Add category to catalog</span>
+          </button>
+        </mat-card-content>
+      </mat-card>
+    </div>
       <app-category *ngFor="let category of categoriesFromServer" [category]="category">
       </app-category>
   </div>

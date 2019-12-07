@@ -5,6 +5,7 @@ import {AdminComponent} from './admin.component';
 import {RoleGuard} from '../../guards/role.guard';
 import {CategoryComponent} from './components/category/category.component';
 import {CategoriesControlComponent} from './components/categories-comtrol/categories-control.component';
+import {CategoryDialogComponent} from './components/category-dialog/category-dialog.component';
 
 const routes: Routes = [
   {
@@ -17,12 +18,14 @@ const routes: Routes = [
   declarations: [
     AdminComponent,
     CategoryComponent,
-    CategoriesControlComponent
+    CategoriesControlComponent,
+    CategoryDialogComponent
   ],
   imports: [
     RouterModule.forChild(routes),
     SharedModule
   ],
+  entryComponents: [CategoryDialogComponent],
   providers: []
 })
 export class AdminModule {}
