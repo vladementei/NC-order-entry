@@ -17,26 +17,36 @@ mat-card{
     }
     height: 100px;
   }
-  img{
+  .photo {
     height: 250px;
-    width: auto;
-  }
-
-  mat-card-content{
-    margin-top: 30px;
-    height: 120px;
-  }
-
-  mat-card-actions{
-    button{
-      img{
-        height: 16px;
-        width: auto;
-        margin-right: 20px;
-      }
-      font-size: 16px;
-      padding: 8px 80px;
-      background-color: whitesmoke;
+    top: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    align-content: center;
+    justify-content: center;
+    overflow: auto;
+    img {
+      margin: 0;
+      width: 220px;
     }
+}
+
+mat-card-content{
+margin-top: 30px;
+height: 120px;
+}
+
+mat-card-actions{
+button{
+  img{
+    height: 16px;
+    width: auto;
+    margin-right: 20px;
   }
+  font-size: 16px;
+  padding: 8px 80px;
+  background-color: whitesmoke;
+}
+}
 }

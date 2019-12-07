@@ -20,7 +20,9 @@
     <mat-card-title>{{offer.title}}</mat-card-title>
   </mat-card-header>
 
-  <img mat-card-image src="{{offer.photo}}" alt="Photo not found">
+  <div class="photo">
+    <img mat-card-image src="{{offer.photo}}" alt="Photo not found">
+  </div>
 
   <mat-card-content>
     <p>{{offer.description}}</p>

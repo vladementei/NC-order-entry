@@ -20,7 +20,7 @@
           </mat-form-field>
           <div *ngIf="categoriesFromServer">
             <mat-form-field>
-              <input matInput type="text" placeholder="Choose category" [formControlName]="'category'" [matAutocomplete]="auto">
+              <input matInput type="text" placeholder="Choose category" [formControlName]="'category'" [matAutocomplete]="auto" required>
               <mat-autocomplete #auto="matAutocomplete" [displayWith]="display">
                 <mat-option *ngFor="let category of filteredCategories | async" [value]="category">
                   {{category.category}}
