@@ -3,6 +3,7 @@ import {HttpService} from '../../../shared/services/http-service.service';
 import {MatDialog} from '@angular/material';
 import {CategoryModel} from '../../../../models/category.model';
 import {Router} from '@angular/router';
+import {UpdateService} from '../../../shared/services/update-service.service';
 
 @Component({
   selector: 'app-category',
@@ -16,7 +17,7 @@ export class CategoryComponent implements OnInit {
   status = 'show';
   categoryInput: string;
 
-  constructor(private http: HttpService, private dialog: MatDialog, private router: Router) {
+  constructor(private http: HttpService, private dialog: MatDialog, private router: Router, private updateService: UpdateService) {
   }
 
   ngOnInit(): void {
@@ -30,14 +31,16 @@ export class CategoryComponent implements OnInit {
   deleteCategory() {
     console.log('delete' + this.categoryInput);
     this.http.deleteCategory(this.category.id).subscribe(() => {
-      this.router.navigate(['admin']);
+      // this.router.navigate(['admin']);
+      this.updateService.sendMessageToUpdate(true);
     });
   }
 
   updateCategory() {
     this.category.category = this.categoryInput;
     this.http.updateCategoryName(this.category).subscribe(() => {
-      this.router.navigate(['admin']);
+      // this.router.navigate(['admin']);
+      this.updateService.sendMessageToUpdate(true);
     });
   }
 

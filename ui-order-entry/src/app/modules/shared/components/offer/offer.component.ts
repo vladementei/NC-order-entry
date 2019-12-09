@@ -4,6 +4,7 @@ import {HttpService} from '../../services/http-service.service';
 import {MatDialog} from '@angular/material';
 import {OfferDialogComponent} from '../offer-dialog/offer-dialog.component';
 import {Router} from '@angular/router';
+import {UpdateService} from '../../services/update-service.service';
 
 @Component({
   selector: 'app-offer',
@@ -16,7 +17,7 @@ export class OfferComponent implements OnInit {
   offer: OfferModel;
   @Input()
   role: string;
-  constructor(private http: HttpService, private dialog: MatDialog, private router: Router) {
+  constructor(private http: HttpService, private dialog: MatDialog, private router: Router, private updateService: UpdateService) {
   }
 
   ngOnInit(): void {
@@ -29,14 +30,18 @@ export class OfferComponent implements OnInit {
     }).afterClosed().subscribe(closeResponse => {
       if (closeResponse === 'updated') {
         console.log('call update');
-        this.router.navigate(['admin']);
+        // this.router.navigate(['admin']);
+        this.updateService.sendMessageToUpdate(true);
       }
     });
   }
 
   deleteOffer() {
     console.log('delete' + this.offer.id);
-    this.http.deleteOffer(this.offer.id).subscribe(() => this.router.navigate(['admin']));
+    this.http.deleteOffer(this.offer.id).subscribe(() => {
+      // this.router.navigate(['admin']);
+      this.updateService.sendMessageToUpdate(true);
+    });
   }
 
   addToBasket() {

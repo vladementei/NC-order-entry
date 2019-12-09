@@ -10,6 +10,7 @@ import {LoaderService} from '../../../../services/loader-service.service';
 import {NavigationEnd, Router} from '@angular/router';
 import {OfferDialogComponent} from '../offer-dialog/offer-dialog.component';
 import {MatDialog} from '@angular/material';
+import {UpdateService} from '../../services/update-service.service';
 
 
 @Component({
@@ -26,8 +27,9 @@ export class CatalogComponent extends RxUnsubscribe implements OnInit {
 
   @Input()
   role: string;
-  constructor(private http: HttpService, private formBuilder: FormBuilder, private service: FilteredOffersService,
-              private loaderService: LoaderService, private router: Router, private dialog: MatDialog) {
+  constructor(private http: HttpService, private formBuilder: FormBuilder, private filterService: FilteredOffersService,
+              private loaderService: LoaderService, private router: Router, private dialog: MatDialog,
+              private updateService: UpdateService ) {
     super();
     this.router.routeReuseStrategy.shouldReuseRoute = () => false;
     this.routerSubscription = this.router.events
@@ -44,21 +46,33 @@ export class CatalogComponent extends RxUnsubscribe implements OnInit {
   ngOnInit(): void {
     console.log(this.role);
     this.isLoading.subscribe();
-    this.http.getOffers()
+    this.reloadOffers();
+    this.filterService.getFilteredOffers()
       .pipe(
         takeUntil((this.destroy$))
       )
-      .subscribe(
+      .subscribe(value => this.filteredOffersFromServer = value);
+    this.updateService.getMessageToUpdate()
+      .pipe(
+        takeUntil((this.destroy$))
+      )
+      .subscribe(value => {
+        if (value === true) {
+          this.reloadOffers();
+        }
+      });
+  }
+  reloadOffers(): void {
+      this.http.getOffers()
+        .pipe(
+          takeUntil((this.destroy$))
+        )
+        .subscribe(
         (offersArray: OfferModel[]) => {
           this.offersFromServer = offersArray;
           this.filteredOffersFromServer = this.offersFromServer;
         }
       );
-    this.service.getFilteredOffers()
-      .pipe(
-        takeUntil((this.destroy$))
-      )
-      .subscribe(value => this.filteredOffersFromServer = value);
   }
   createOffer(): void {
     console.log('create ');
@@ -67,7 +81,8 @@ export class CatalogComponent extends RxUnsubscribe implements OnInit {
     }).afterClosed().subscribe(closeResponse => {
       if (closeResponse === 'updated') {
         console.log('call update');
-        this.router.navigate(['admin']);
+        // this.router.navigate(['admin']);
+        this.reloadOffers();
       }
     });
   }
