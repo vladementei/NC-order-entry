@@ -18,6 +18,7 @@ import {FilterComponent} from './components/filter/filter.component';
 import {OfferComponent} from './components/offer/offer.component';
 import {CatalogComponent} from './components/catalog/catalog.component';
 import {OfferDialogComponent} from './components/offer-dialog/offer-dialog.component';
+import {HeaderComponent} from './components/header/header.component';
 
 
 const ngCoreModules = [
@@ -52,7 +53,8 @@ const materialModules = [
     TitleFilterPipe,
     OfferComponent,
     CatalogComponent,
-    OfferDialogComponent
+    OfferDialogComponent,
+    HeaderComponent
   ],
   providers: [RoleGuard],
   declarations: [
@@ -61,7 +63,8 @@ const materialModules = [
     TitleFilterPipe,
     OfferComponent,
     CatalogComponent,
-    OfferDialogComponent
+    OfferDialogComponent,
+    HeaderComponent
   ],
   entryComponents: [DialogComponent, OfferDialogComponent]
 })
