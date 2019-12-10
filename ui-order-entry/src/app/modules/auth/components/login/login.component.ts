@@ -40,15 +40,16 @@ export class LoginComponent implements OnInit {
   }
   public onSubmit(): void {
     const answer = this.loginFormGroup.value;
-    const user: UserModel = {email: answer.email, login: '', password: answer.password, role: ''};
+    const user: UserModel = {email: answer.email, login: '', password: answer.password, role: '',
+                             surname: '', name: '', patronymic: '', age: 0};
     this.authService.loginUser(user)
       .then(response => {
         localStorage.setItem('user_info', JSON.stringify(response));
         switch (response.role) {
-          case 'user':
+          case 'USER':
             this.router.navigate(['wizard']);
             break;
-          case 'admin':
+          case 'ADMIN':
             this.router.navigate(['admin']);
             break;
         }

@@ -13,7 +13,7 @@ export class RoleGuard implements CanActivate {
       if (state.url.includes('wizard')) {
         return true;
       } else if (state.url.includes('admin')) {
-        return (JSON.parse(localStorage.getItem('user_info')).role === 'admin');
+        return (JSON.parse(localStorage.getItem('user_info')).role === 'ADMIN');
       }
     } else {
       this.router.navigate(['auth/login']);

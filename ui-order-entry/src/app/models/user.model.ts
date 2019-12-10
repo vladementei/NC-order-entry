@@ -3,4 +3,8 @@ export interface UserModel {
   login: string;
   password: string;
   role: string;
+  surname: string;
+  name: string;
+  patronymic: string;
+  age: number;
 }

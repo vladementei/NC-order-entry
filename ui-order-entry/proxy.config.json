@@ -5,5 +5,19 @@
     "pathRewrite":{
       "^/catalog":""
     }
+  },
+  "/shop": {
+    "target": "http://localhost:8086",
+    "secure": false,
+    "pathRewrite":{
+      "^/shop":""
+    }
+  },
+  "/processor": {
+    "target": "http://localhost:8080",
+    "secure": false,
+    "pathRewrite":{
+      "^/processor":""
+    }
   }
 }

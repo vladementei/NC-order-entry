@@ -31,7 +31,8 @@ export class RegistrationComponent implements OnInit {
 
   public onSubmit(): void {
     const answer = this.registerFormGroup.value;
-    const user: UserModel = {email: answer.email, login: answer.login, password: answer.password, role: 'user'};
+    const user: UserModel = {email: answer.email, login: answer.login, password: answer.password, role: 'USER',
+                             name: '', surname: '', patronymic: '', age: 0};
     this.authService.addUser(user)
       .then(response => {
         this.dialog.open(DialogComponent, {
