@@ -1,0 +1,15 @@
+<div *ngIf="isLoading|async" class="parent-center">
+  <mat-spinner>
+  </mat-spinner>
+</div>
+<div *ngIf="!(isLoading|async)">
+  <div class="catalog-container" *ngIf="(orderItems)">
+    <div class="offers">
+      <app-basket-elem *ngFor="let item of orderItems" [item]="item">
+      </app-basket-elem>
+    </div>
+  </div>
+  <div *ngIf="!(orderItems)">
+    No order created
+  </div>
+</div>
