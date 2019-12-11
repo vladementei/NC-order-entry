@@ -11,9 +11,9 @@
       </div>
     </div>
     <div class="greeting">
-      Hello, Vlad
+      Hello, {{this.user.login}}
     </div>
-    <div class="log-out">
+    <div class="log-out" (click)="logOut()">
       <mat-icon>exit_to_app</mat-icon>
       <div class="log-out-text">Log out</div>
     </div>
