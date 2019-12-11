@@ -3,6 +3,7 @@ import {Observable} from 'rxjs';
 import {OfferModel} from '../../../models/offer.model';
 import {HttpClient} from '@angular/common/http';
 import {CategoryModel} from '../../../models/category.model';
+import {OrderModel} from '../../../models/order.model';
 
 @Injectable({
   providedIn: 'root'
@@ -20,7 +21,7 @@ export class HttpService {
   }
 
   getCategoryByName(name: string): Observable<CategoryModel> {
-    return this.http.get<CategoryModel>('/catalog/api/v1/categories/name/' + name)
+    return this.http.get<CategoryModel>('/catalog/api/v1/categories/name/' + name);
   }
 
   getOffers(): Observable<OfferModel[]> {
@@ -50,6 +51,14 @@ export class HttpService {
 
   deleteCategory(id: number): Observable<void> {
     return this.http.delete<void>('/catalog/api/v1/categories/' + id);
+  }
+
+  createOrder(order: {offers: number[], email: string}): Observable<OrderModel> {
+    return this.http.post<OrderModel>('/processor/api/v1/processor/order', order);
+  }
+
+  addOfferToOrder(orderId: number, offerId: number): Observable<OrderModel> {
+    return this.http.put<OrderModel>(`/processor/api/v1/processor/order/${orderId}/add?offerId=${offerId}`, null);
   }
 }
 

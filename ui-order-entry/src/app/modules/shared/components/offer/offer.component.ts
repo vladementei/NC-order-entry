@@ -47,6 +47,19 @@ export class OfferComponent implements OnInit {
   addToBasket() {
     if (this.role === 'wizard') {
       console.log('add to basket ' + this.offer.id);
+      const lastOrder = localStorage.getItem('last_order');
+      if (!lastOrder) {
+        this.http.createOrder({offers: [this.offer.id], email: JSON.parse(localStorage.getItem('user_info')).email}).subscribe(
+          order => {
+            console.log(order);
+            localStorage.setItem('last_order', JSON.stringify({id: order.id}));
+          });
+      } else {
+        console.log(lastOrder);
+        this.http.addOfferToOrder(JSON.parse(lastOrder).id, this.offer.id).subscribe(order => {
+          console.log(order);
+        });
+      }
     }
   }
 }

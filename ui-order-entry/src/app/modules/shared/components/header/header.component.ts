@@ -18,7 +18,8 @@ export class HeaderComponent implements OnInit {
   }
 
   logOut() {
-    localStorage.removeItem('user_info');
+    // localStorage.removeItem('user_info');
+    localStorage.clear();
     window.location.reload();
   }
 }
