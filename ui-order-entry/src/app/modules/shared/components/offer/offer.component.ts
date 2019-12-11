@@ -1,10 +1,11 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {OfferModel} from '../../../../models/offer.model';
 import {HttpService} from '../../services/http-service.service';
-import {MatDialog} from '@angular/material';
+import {MatDialog, MatSnackBar} from '@angular/material';
 import {OfferDialogComponent} from '../offer-dialog/offer-dialog.component';
 import {Router} from '@angular/router';
 import {UpdateService} from '../../services/update-service.service';
+import {NotificationComponent} from '../notification/notification.component';
 
 @Component({
   selector: 'app-offer',
@@ -17,7 +18,8 @@ export class OfferComponent implements OnInit {
   offer: OfferModel;
   @Input()
   role: string;
-  constructor(private http: HttpService, private dialog: MatDialog, private router: Router, private updateService: UpdateService) {
+  constructor(private http: HttpService, private dialog: MatDialog, private router: Router, private updateService: UpdateService,
+              private notification: MatSnackBar) {
   }
 
   ngOnInit(): void {
@@ -43,6 +45,15 @@ export class OfferComponent implements OnInit {
       this.updateService.sendMessageToUpdate(true);
     });
   }
+  showAddToBasketNotification() {
+    this.notification.openFromComponent(NotificationComponent, {
+      verticalPosition: 'bottom',
+      horizontalPosition: 'right',
+      duration: 3000,
+      panelClass: ['notification'],
+      data: {title: 'Added to basket', text: this.offer.description}
+    });
+  }
 
   addToBasket() {
     if (this.role === 'wizard') {
@@ -53,11 +64,13 @@ export class OfferComponent implements OnInit {
           order => {
             console.log(order);
             localStorage.setItem('last_order', JSON.stringify({id: order.id}));
+            this.showAddToBasketNotification();
           });
       } else {
         console.log(lastOrder);
         this.http.addOfferToOrder(JSON.parse(lastOrder).id, this.offer.id).subscribe(order => {
           console.log(order);
+          this.showAddToBasketNotification();
         });
       }
     }

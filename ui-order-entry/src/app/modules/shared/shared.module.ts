@@ -8,7 +8,7 @@ import {
   MatDialogModule,
   MatFormFieldModule, MatIconModule,
   MatInputModule, MatMenuModule,
-  MatProgressSpinnerModule, MatTabsModule
+  MatProgressSpinnerModule, MatSnackBarModule, MatTabsModule
 } from '@angular/material';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {DialogComponent} from '../../components/dialog/dialog.component';
@@ -19,6 +19,7 @@ import {OfferComponent} from './components/offer/offer.component';
 import {CatalogComponent} from './components/catalog/catalog.component';
 import {OfferDialogComponent} from './components/offer-dialog/offer-dialog.component';
 import {HeaderComponent} from './components/header/header.component';
+import {NotificationComponent} from './components/notification/notification.component';
 
 
 const ngCoreModules = [
@@ -39,6 +40,7 @@ const materialModules = [
   MatIconModule,
   MatAutocompleteModule,
   MatTabsModule,
+  MatSnackBarModule
 ];
 
 @NgModule({
@@ -54,7 +56,8 @@ const materialModules = [
     OfferComponent,
     CatalogComponent,
     OfferDialogComponent,
-    HeaderComponent
+    HeaderComponent,
+    NotificationComponent
   ],
   providers: [RoleGuard],
   declarations: [
@@ -64,8 +67,9 @@ const materialModules = [
     OfferComponent,
     CatalogComponent,
     OfferDialogComponent,
-    HeaderComponent
+    HeaderComponent,
+    NotificationComponent
   ],
-  entryComponents: [DialogComponent, OfferDialogComponent]
+  entryComponents: [DialogComponent, OfferDialogComponent, NotificationComponent]
 })
 export class SharedModule {}
