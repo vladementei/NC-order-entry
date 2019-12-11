@@ -10,7 +10,7 @@ export class RoleGuard implements CanActivate {
   }
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> | boolean {
     if ((localStorage.getItem('user_info') != null)) {
-      if (state.url.includes('wizard')) {
+      if (state.url.includes('wizard') || state.url.includes('checkout')) {
         return true;
       } else if (state.url.includes('admin')) {
         return (JSON.parse(localStorage.getItem('user_info')).role === 'ADMIN');
