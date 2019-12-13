@@ -1,4 +1,5 @@
 import {Component, OnInit} from '@angular/core';
+import {FormGroup} from '@angular/forms';
 
 @Component({
   selector: 'app-checkout',
@@ -6,8 +7,14 @@ import {Component, OnInit} from '@angular/core';
   styleUrls: ['./checkout.component.less']
 })
 export class CheckoutComponent implements OnInit {
-  constructor() {
+  deliveryForm: FormGroup = null;
+
+  constructor() {}
+
+  ngOnInit() {
   }
-  ngOnInit(): void {
+  emitForm($event) {
+    this.deliveryForm = $event;
+    console.log($event);
   }
 }

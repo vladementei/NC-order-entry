@@ -9,9 +9,11 @@
     <p>Price {{this.item.price}} rub</p>
   </mat-card-content>
 
-  <div class="delete" *ngIf="this.role === 'summary'">
-    <button mat-icon-button (click)="deleteItem()">
-      <mat-icon>cancel</mat-icon>
-    </button>
+  <div class="delete">
+    <div *ngIf="this.role === 'summary'">
+      <button mat-icon-button (click)="deleteItem()">
+        <mat-icon>cancel</mat-icon>
+      </button>
+    </div>
   </div>
 </mat-card>

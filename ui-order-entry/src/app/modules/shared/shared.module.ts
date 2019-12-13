@@ -8,7 +8,7 @@ import {
   MatDialogModule,
   MatFormFieldModule, MatIconModule,
   MatInputModule, MatMenuModule,
-  MatProgressSpinnerModule, MatSnackBarModule, MatTabsModule
+  MatProgressSpinnerModule, MatSnackBarModule, MatStepperModule, MatTabsModule
 } from '@angular/material';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {DialogComponent} from '../../components/dialog/dialog.component';
@@ -20,6 +20,7 @@ import {CatalogComponent} from './components/catalog/catalog.component';
 import {OfferDialogComponent} from './components/offer-dialog/offer-dialog.component';
 import {HeaderComponent} from './components/header/header.component';
 import {NotificationComponent} from './components/notification/notification.component';
+import {DeliveryComponent} from './components/delivery/delivery.component';
 
 
 const ngCoreModules = [
@@ -40,7 +41,8 @@ const materialModules = [
   MatIconModule,
   MatAutocompleteModule,
   MatTabsModule,
-  MatSnackBarModule
+  MatSnackBarModule,
+  MatStepperModule
 ];
 
 @NgModule({
@@ -57,7 +59,8 @@ const materialModules = [
     CatalogComponent,
     OfferDialogComponent,
     HeaderComponent,
-    NotificationComponent
+    NotificationComponent,
+    DeliveryComponent
   ],
   providers: [RoleGuard],
   declarations: [
@@ -68,7 +71,8 @@ const materialModules = [
     CatalogComponent,
     OfferDialogComponent,
     HeaderComponent,
-    NotificationComponent
+    NotificationComponent,
+    DeliveryComponent
   ],
   entryComponents: [DialogComponent, OfferDialogComponent, NotificationComponent]
 })

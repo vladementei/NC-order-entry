@@ -1,2 +1,21 @@
 <app-header></app-header>
-<app-basket [role]="'summary'"></app-basket>
+<mat-horizontal-stepper [linear]="true" #stepper>
+  <mat-step>
+    <ng-template matStepLabel>Basket overview</ng-template>
+    <app-basket [role]="'summary'"></app-basket>
+    <div>
+      <button mat-button matStepperNext>Next</button>
+    </div>
+  </mat-step>
+  <mat-step [stepControl]="deliveryForm">
+    <ng-template matStepLabel>Delivery information</ng-template>
+    <app-delivery (deliveryEmitter)="emitForm($event)"></app-delivery>
+  </mat-step>
+  <mat-step>
+    <ng-template matStepLabel>Order confirmation</ng-template>
+    <app-basket></app-basket>
+    <div>
+      <button mat-button matStepperPrevious>Back</button>
+    </div>
+  </mat-step>
+</mat-horizontal-stepper>

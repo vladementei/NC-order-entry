@@ -17,7 +17,7 @@ const routes: Routes = [
   declarations: [
     CheckoutComponent,
     BasketComponent,
-    BasketElementComponent
+    BasketElementComponent,
   ],
   imports: [
     RouterModule.forChild(routes),
