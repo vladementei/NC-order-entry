@@ -6,6 +6,7 @@ import {OfferDialogComponent} from '../offer-dialog/offer-dialog.component';
 import {Router} from '@angular/router';
 import {UpdateService} from '../../services/update-service.service';
 import {NotificationComponent} from '../notification/notification.component';
+import {NumberOrderItemsService} from '../../../../services/number-order-items.service';
 
 @Component({
   selector: 'app-offer',
@@ -19,7 +20,7 @@ export class OfferComponent implements OnInit {
   @Input()
   role: string;
   constructor(private http: HttpService, private dialog: MatDialog, private router: Router, private updateService: UpdateService,
-              private notification: MatSnackBar) {
+              private notification: MatSnackBar, private numberItemsService: NumberOrderItemsService) {
   }
 
   ngOnInit(): void {
@@ -41,7 +42,6 @@ export class OfferComponent implements OnInit {
   deleteOffer() {
     console.log('delete' + this.offer.id);
     this.http.deleteOffer(this.offer.id).subscribe(() => {
-      // this.router.navigate(['admin']);
       this.updateService.sendMessageToUpdate(true);
     });
   }
@@ -63,14 +63,17 @@ export class OfferComponent implements OnInit {
         this.http.createOrder({offers: [this.offer.id], email: JSON.parse(localStorage.getItem('user_info')).email}).subscribe(
           order => {
             console.log(order);
-            localStorage.setItem('last_order', JSON.stringify({id: order.id}));
+            localStorage.setItem('last_order', JSON.stringify({id: order.id, numItems: order.orderItems.length}));
             this.showAddToBasketNotification();
+            this.numberItemsService.sendNewNumber(order.orderItems.length);
           });
       } else {
         console.log(lastOrder);
         this.http.addOfferToOrder(JSON.parse(lastOrder).id, this.offer.id).subscribe(order => {
           console.log(order);
+          localStorage.setItem('last_order', JSON.stringify({id: order.id, numItems: order.orderItems.length}));
           this.showAddToBasketNotification();
+          this.numberItemsService.sendNewNumber(order.orderItems.length);
         });
       }
     }

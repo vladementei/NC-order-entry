@@ -1,12 +1,12 @@
 <div class="header">
-  <div class="logo">
+  <div class="logo" (click)="openWizard()">
     <img src="../../../../../assets/logo.png"/>
   </div>
   <div class="content">
-    <div class="basket">
+    <div class="basket" (click)="openBasket()">
       <mat-icon>shopping_cart</mat-icon>
       <div class="basket-info">
-        <div class="counter">1</div>
+        <div class="counter">{{numberOrderItems}}</div>
         <span>Basket</span>
       </div>
     </div>
