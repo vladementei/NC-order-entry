@@ -5,7 +5,7 @@
 <div *ngIf="!(isLoading|async)">
   <div class="catalog-container" *ngIf="(orderItems)">
     <div class="offers">
-      <app-basket-elem *ngFor="let item of orderItems" [item]="item">
+      <app-basket-elem *ngFor="let item of orderItems" [item]="item" [role]="this.role">
       </app-basket-elem>
     </div>
   </div>

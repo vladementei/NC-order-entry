@@ -1,1 +1,17 @@
-<h1>{{this.item.title}}</h1>
+<mat-card>
+  <div class="photo">
+    <img mat-card-image src="{{this.item.photo}}" alt="Photo not found">
+  </div>
+
+  <mat-card-content>
+    <mat-card-title>{{this.item.title}}</mat-card-title>
+    <p>{{this.item.description}}</p>
+    <p>Price {{this.item.price}} rub</p>
+  </mat-card-content>
+
+  <div class="delete" *ngIf="this.role === 'summary'">
+    <button mat-icon-button (click)="deleteItem()">
+      <mat-icon>cancel</mat-icon>
+    </button>
+  </div>
+</mat-card>

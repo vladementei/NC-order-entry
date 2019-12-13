@@ -61,6 +61,10 @@ export class HttpService {
     return this.http.put<OrderModel>(`/processor/api/v1/processor/order/${orderId}/add?offerId=${offerId}`, null);
   }
 
+  deleteOrderItemFromOrder(orderId: number, orderItemId: number): Observable<OrderModel> {
+    return this.http.put<OrderModel>(`/processor/api/v1/processor/order/${orderId}/delete?orderItemId=${orderItemId}`, null);
+  }
+
   getOrderById(orderId: number): Observable<OrderModel> {
     return this.http.get<OrderModel>(`/processor/api/v1/processor/orders/${orderId}`);
   }
