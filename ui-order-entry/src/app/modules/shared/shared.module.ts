@@ -8,7 +8,7 @@ import {
   MatDialogModule,
   MatFormFieldModule, MatIconModule,
   MatInputModule, MatMenuModule,
-  MatProgressSpinnerModule, MatSnackBarModule, MatStepperModule, MatTabsModule
+  MatProgressSpinnerModule, MatRadioModule, MatSnackBarModule, MatStepperModule, MatTabsModule
 } from '@angular/material';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {DialogComponent} from '../../components/dialog/dialog.component';
@@ -42,7 +42,8 @@ const materialModules = [
   MatAutocompleteModule,
   MatTabsModule,
   MatSnackBarModule,
-  MatStepperModule
+  MatStepperModule,
+  MatRadioModule
 ];
 
 @NgModule({

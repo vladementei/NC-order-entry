@@ -13,24 +13,26 @@ export class DeliveryComponent implements OnInit {
 
   ngOnInit() {
     this.deliveryForm = this.formBuilder.group({
-      email: this.formBuilder.control('', [Validators.required, Validators.email]),
-      login: this.formBuilder.control('', Validators.required),
-      password: this.formBuilder.control('', [Validators.required, Validators.minLength(6)])
+      address: this.formBuilder.control('', [Validators.required]),
+      phone: this.formBuilder.control('', [Validators.required,
+        Validators.pattern( /[+][0-9]{3}[-][0-9]{2}[-][0-9]{3}[-][0-9]{2}[-][0-9]{2}$/g)]),
+      paymentType: 'cash'
     });
     this.deliveryEmitter.emit(this.deliveryForm);
-  }
-
-  getEmailError(elemName: string): string {
-    return this.deliveryForm.get(elemName).hasError('email') ? 'Not a valid email' : '';
-  }
-  getMinLengthError(elemName: string, minLength: number): string {
-    return this.deliveryForm.get(elemName).hasError('minlength') ? 'Minimum length is ' + minLength : '';
   }
   getRequiredError(elemName: string): string {
     return this.deliveryForm.get(elemName).hasError('required') ? 'You must enter a value' : '';
   }
+  getPhonePatternError(elemName: string): string {
+    return this.deliveryForm.get(elemName).hasError('pattern') ? 'Phone pattern is +xxx-xx-xxx-xx-xx' : '';
+  }
 
   saveDeliveryInfo() {
 
+  }
+
+  getFormData() {
+    console.log(this.deliveryForm.get('address').value + ' ' + this.deliveryForm.get('phone').value
+      + ' ' + this.deliveryForm.get('paymentType').value);
   }
 }

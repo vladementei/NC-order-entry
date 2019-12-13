@@ -9,7 +9,9 @@
   </mat-step>
   <mat-step [stepControl]="deliveryForm">
     <ng-template matStepLabel>Delivery information</ng-template>
-    <app-delivery (deliveryEmitter)="emitForm($event)"></app-delivery>
+    <div class="delivery">
+      <app-delivery (deliveryEmitter)="emitForm($event)"></app-delivery>
+    </div>
   </mat-step>
   <mat-step>
     <ng-template matStepLabel>Order confirmation</ng-template>
