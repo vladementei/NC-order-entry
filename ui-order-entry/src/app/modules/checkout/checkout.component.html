@@ -1,6 +1,6 @@
 <app-header></app-header>
 <mat-horizontal-stepper [linear]="true" #stepper>
-  <mat-step>
+  <mat-step [completed] = "!isBasketEmpty()">
     <ng-template matStepLabel>Basket overview</ng-template>
     <app-basket [role]="'summary'"></app-basket>
     <div>
@@ -15,6 +15,21 @@
   </mat-step>
   <mat-step>
     <ng-template matStepLabel>Order confirmation</ng-template>
+    <h1>Delivery info</h1>
+    <mat-card>
+      <mat-card-content>
+        <label>Customer</label>
+        <p>{{this.user.name + ' ' + this.user.surname}}</p>
+        <label>Address</label>
+        <p>{{this.deliveryForm.get('address').value}}</p>
+        <label>Email</label>
+        <p>{{this.user.email}}</p>
+        <label>Phone number</label>
+        <p>{{this.deliveryForm.get('phone').value}}</p>
+        <label>Payment type</label>
+        <p>{{this.deliveryForm.get('paymentType').value}}</p>
+      </mat-card-content>
+    </mat-card>
     <app-basket></app-basket>
     <div>
       <button mat-button matStepperPrevious>Back</button>

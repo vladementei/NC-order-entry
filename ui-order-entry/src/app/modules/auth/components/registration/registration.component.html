@@ -11,8 +11,12 @@
           <mat-error *ngIf="registerFormGroup.get('email').invalid">{{getRequiredError('email') || getEmailError('email')}}</mat-error>
         </mat-form-field>
         <mat-form-field>
-          <input matInput placeholder="Login" [formControlName]="'login'" required>
-          <mat-error *ngIf="registerFormGroup.get('login').invalid">{{getRequiredError('login')}}</mat-error>
+          <input matInput placeholder="Name" [formControlName]="'name'" required>
+          <mat-error *ngIf="registerFormGroup.get('name').invalid">{{getRequiredError('name')}}</mat-error>
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput placeholder="Surname" [formControlName]="'surname'" required>
+          <mat-error *ngIf="registerFormGroup.get('surname').invalid">{{getRequiredError('surname')}}</mat-error>
         </mat-form-field>
         <mat-form-field>
           <input matInput type="password" placeholder="Password" [formControlName]="'password'" required>

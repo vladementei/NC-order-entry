@@ -24,15 +24,16 @@ export class RegistrationComponent implements OnInit {
   ngOnInit(): void {
     this.registerFormGroup = this.formBuilder.group({
       email: this.formBuilder.control('', [Validators.required, Validators.email]),
-      login: this.formBuilder.control('', Validators.required),
+      name: this.formBuilder.control('', Validators.required),
+      surname: this.formBuilder.control('', Validators.required),
       password: this.formBuilder.control('', [Validators.required, Validators.minLength(6)])
     });
   }
 
   public onSubmit(): void {
     const answer = this.registerFormGroup.value;
-    const user: UserModel = {email: answer.email, login: answer.login, password: answer.password, role: 'USER',
-                             name: '', surname: '', patronymic: '', age: 0};
+    const user: UserModel = {email: answer.email, password: answer.password, role: 'USER',
+                             name: answer.name, surname: answer.surname, patronymic: '', age: 0};
     this.authService.addUser(user)
       .then(response => {
         this.dialog.open(DialogComponent, {
