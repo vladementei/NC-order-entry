@@ -5,7 +5,6 @@ import {RxUnsubscribe} from '../../../../classes/rx-unsubscribe';
 import {LoaderService} from '../../../../services/loader-service.service';
 import {Observable} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
-import {OfferModel} from '../../../../models/offer.model';
 import {OrderModel} from '../../../../models/order.model';
 import {UpdateService} from '../../../shared/services/update-service.service';
 
@@ -17,6 +16,7 @@ import {UpdateService} from '../../../shared/services/update-service.service';
 export class BasketComponent extends RxUnsubscribe implements OnInit {
   orderItems: OrderItemModel[];
   isLoading: Observable<boolean> = this.loaderService.isLoading;
+  totalSum = 0.0;
   @Input()
   role: string;
   constructor(private http: HttpService, private loaderService: LoaderService, private updateService: UpdateService) {
@@ -46,8 +46,13 @@ export class BasketComponent extends RxUnsubscribe implements OnInit {
         .subscribe(
           (order: OrderModel) => {
             this.orderItems = order.orderItems;
+            this.totalSum = this.orderItems.reduce((curSum, orderItem) => curSum + orderItem.price, 0);
           }
         );
     }
+  }
+
+  confirmOrder() {
+    console.log('confirm order');
   }
 }

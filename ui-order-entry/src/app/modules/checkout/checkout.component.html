@@ -3,36 +3,29 @@
   <mat-step [completed] = "!isBasketEmpty()">
     <ng-template matStepLabel>Basket overview</ng-template>
     <app-basket [role]="'summary'"></app-basket>
-    <div>
-      <button mat-button matStepperNext>Next</button>
-    </div>
   </mat-step>
   <mat-step [stepControl]="deliveryForm">
-    <ng-template matStepLabel>Delivery information</ng-template>
+  <ng-template matStepLabel>Delivery information</ng-template>
     <div class="delivery">
       <app-delivery (deliveryEmitter)="emitForm($event)"></app-delivery>
     </div>
   </mat-step>
   <mat-step>
     <ng-template matStepLabel>Order confirmation</ng-template>
-    <h1>Delivery info</h1>
-    <mat-card>
-      <mat-card-content>
-        <label>Customer</label>
-        <p>{{this.user.name + ' ' + this.user.surname}}</p>
-        <label>Address</label>
-        <p>{{this.deliveryForm.get('address').value}}</p>
-        <label>Email</label>
-        <p>{{this.user.email}}</p>
-        <label>Phone number</label>
-        <p>{{this.deliveryForm.get('phone').value}}</p>
-        <label>Payment type</label>
-        <p>{{this.deliveryForm.get('paymentType').value}}</p>
-      </mat-card-content>
-    </mat-card>
-    <app-basket></app-basket>
-    <div>
-      <button mat-button matStepperPrevious>Back</button>
+    <div class="delivery-container">
+      <h1>Delivery information</h1>
+      <mat-card>
+        <mat-card-content>
+          <p><span>Customer:</span>{{this.user.name + ' ' + this.user.surname}}</p>
+          <p><span>Address:</span>{{this.deliveryForm.get('address').value}}</p>
+          <p><span>Email:</span>{{this.user.email}}</p>
+          <p><span>Phone number:</span>{{this.deliveryForm.get('phone').value}}</p>
+          <p><span>Payment type:</span>{{this.deliveryForm.get('paymentType').value}}</p>
+        </mat-card-content>
+      </mat-card>
     </div>
+    <h1>Basket information</h1>
+
+    <app-basket [role]="'confirmation'"></app-basket>
   </mat-step>
 </mat-horizontal-stepper>
