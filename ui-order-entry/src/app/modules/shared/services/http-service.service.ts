@@ -72,7 +72,7 @@ export class HttpService {
     return this.http.put<OrderModel>(`/processor/api/v1/processor/orders/${orderId}/order-status`, orderStatus);
   }
 
-  changeDeliveyAddress(orderId: number, address: string): Observable<OrderModel> {
+  changeDeliveryAddress(orderId: number, address: string): Observable<OrderModel> {
     return this.http.put<OrderModel>(`/processor/api/v1/processor/orders/${orderId}/address`, address);
   }
 

@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {FormGroup} from '@angular/forms';
 import {UserModel} from '../../models/user.model';
-import {Observable} from 'rxjs';
+import {forkJoin, Observable} from 'rxjs';
 import {LoaderService} from '../../services/loader-service.service';
 import {OrderItemModel} from '../../models/order-item.model';
 import {takeUntil} from 'rxjs/operators';
@@ -9,6 +9,10 @@ import {OrderModel} from '../../models/order.model';
 import {UpdateService} from '../shared/services/update-service.service';
 import {RxUnsubscribe} from '../../classes/rx-unsubscribe';
 import {HttpService} from '../shared/services/http-service.service';
+import {MatDialog} from '@angular/material';
+import {DialogComponent} from '../../components/dialog/dialog.component';
+import {DialogType} from '../../models/dialog-data.model';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-checkout',
@@ -21,7 +25,8 @@ export class CheckoutComponent extends RxUnsubscribe implements OnInit {
   deliveryForm: FormGroup = null;
   user: UserModel;
   isLoading: Observable<boolean> = this.loaderService.isLoading;
-  constructor( private loaderService: LoaderService, private updateService: UpdateService, private http: HttpService) {
+  constructor( private loaderService: LoaderService, private updateService: UpdateService, private http: HttpService,
+               private dialog: MatDialog, private router: Router) {
     super();
   }
 
@@ -67,22 +72,33 @@ export class CheckoutComponent extends RxUnsubscribe implements OnInit {
   }
 
   confirmOrder() {
-    console.log('confirm');
-    // const orderId = JSON.parse(localStorage.getItem('last_order')).id;
-    //   new Promise((resolve, reject) => {
-    //     this.http.changeOrderStatus(orderId, 'CONFIRMED').subscribe(
-    //       order => {
-    //         console.log(order);
-    //       }
-    //     );
-    //     this.http.changeContactNumber(orderId, 'CONFIRMED').subscribe(
-    //       order => {
-    //         console.log(order);
-    //       }
-    //     );
-    //   });
+    const orderId = JSON.parse(localStorage.getItem('last_order')).id;
+    let paymentType = 'CASH';
+    switch (this.deliveryForm.get('paymentType').value) {
+      case 'cash':
+        paymentType = 'CASH';
+        break;
+      case 'credit card':
+        paymentType = 'CREDIT_CARD';
+        break;
+    }
+    const responseAddress = this.http.changeDeliveryAddress(orderId, this.deliveryForm.get('address').value);
+    const responsePhone = this.http.changeContactNumber(orderId, this.deliveryForm.get('phone').value);
+    const responsePayment = this.http.changePaymentType(orderId, paymentType);
+    forkJoin([responseAddress, responsePhone, responsePayment]).subscribe(
+      order =>  this.http.changeOrderStatus(orderId, 'CONFIRMED').subscribe(
+        confirmedOrder => {
+          this.dialog.open(DialogComponent, {
+            data: {message: 'Order successfully confirmed', type: DialogType.success}
+          }).afterClosed().subscribe(() => {
+            localStorage.removeItem('last_order');
+            this.router.navigate(['wizard']);
+          });
+        }
+      )
+    );
+    console.log(this.deliveryForm.get('paymentType').value);
   }
-
   cancelOrder() {
     console.log('cancel');
   }
