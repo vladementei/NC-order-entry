@@ -1,6 +1,8 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {UserModel} from '../../../models/user.model';
+import {OrderModel} from '../../../models/order.model';
+import {Observable} from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -38,5 +40,9 @@ export class AuthFormService {
           }
         );
     });
+  }
+
+  getLastOrderByEmailAndOrderStatus(email: string, orderStatus: string): Observable<OrderModel> {
+    return this.http.get<OrderModel>( `/shop/api/v1/orders/email/${email}?order-status=${orderStatus}`);
   }
 }

@@ -6,6 +6,7 @@ import {AuthFormService} from '../../services/auth-form.service';
 import {MatDialog} from '@angular/material';
 import {Router} from '@angular/router';
 import {DialogType} from '../../../../models/dialog-data.model';
+import {NumberOrderItemsService} from '../../../../services/number-order-items.service';
 
 @Component({
   selector: 'app-auth',
@@ -18,7 +19,8 @@ export class LoginComponent implements OnInit {
   constructor(private formBuilder: FormBuilder,
               private authService: AuthFormService,
               private dialog: MatDialog,
-              private router: Router) {
+              private router: Router,
+              private numberItemsService: NumberOrderItemsService) {
   }
 
   ngOnInit(): void {
@@ -26,25 +28,20 @@ export class LoginComponent implements OnInit {
       email: this.formBuilder.control('', [Validators.required, Validators.email]),
       password: this.formBuilder.control('', Validators.required)
     });
-    // для перенаправления пользователя если он залогинен
-    // if (localStorage.getItem('user_info') != null) {
-    //   switch (JSON.parse(localStorage.getItem('login')).role) {
-    //     case 'user':
-    //       this.router.navigate(['wizard']);
-    //       break;
-    //     case 'admin':
-    //       this.router.navigate(['admin']);
-    //       break;
-    //   }
-    // }
   }
   public onSubmit(): void {
     const answer = this.loginFormGroup.value;
-    const user: UserModel = {email: answer.email, login: '', password: answer.password, role: '',
+    const user: UserModel = {email: answer.email, password: answer.password, role: '',
                              surname: '', name: '', patronymic: '', age: 0};
     this.authService.loginUser(user)
       .then(response => {
         localStorage.setItem('user_info', JSON.stringify(response));
+        this.authService.getLastOrderByEmailAndOrderStatus(response.email, 'IN_PROCESS').subscribe(
+          order => {
+            localStorage.setItem('last_order', JSON.stringify({id: order.id, numItems: order.orderItems.length}));
+            this.numberItemsService.sendNewNumber(order.orderItems.length);
+          }
+        );
         switch (response.role) {
           case 'USER':
             this.router.navigate(['wizard']);

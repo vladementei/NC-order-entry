@@ -54,15 +54,15 @@ export class HttpService {
   }
 
   createOrder(order: {offers: number[], email: string}): Observable<OrderModel> {
-    return this.http.post<OrderModel>('/processor/api/v1/processor/order', order);
+    return this.http.post<OrderModel>('/processor/api/v1/processor/orders', order);
   }
 
   addOfferToOrder(orderId: number, offerId: number): Observable<OrderModel> {
-    return this.http.put<OrderModel>(`/processor/api/v1/processor/order/${orderId}/add?offerId=${offerId}`, null);
+    return this.http.put<OrderModel>(`/processor/api/v1/processor/orders/${orderId}/add?offerId=${offerId}`, null);
   }
 
   deleteOrderItemFromOrder(orderId: number, orderItemId: number): Observable<OrderModel> {
-    return this.http.put<OrderModel>(`/processor/api/v1/processor/order/${orderId}/delete?orderItemId=${orderItemId}`, null);
+    return this.http.put<OrderModel>(`/processor/api/v1/processor/orders/${orderId}/delete?orderItemId=${orderItemId}`, null);
   }
 
   getOrderById(orderId: number): Observable<OrderModel> {
