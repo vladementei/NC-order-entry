@@ -35,6 +35,7 @@ export class LoginComponent implements OnInit {
                              surname: '', name: '', patronymic: '', age: 0};
     this.authService.loginUser(user)
       .then(response => {
+        localStorage.clear();
         localStorage.setItem('user_info', JSON.stringify(response));
         this.authService.getLastOrderByEmailAndOrderStatus(response.email, 'IN_PROCESS').subscribe(
           order => {
