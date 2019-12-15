@@ -101,5 +101,11 @@ export class CheckoutComponent extends RxUnsubscribe implements OnInit {
   }
   cancelOrder() {
     console.log('cancel');
+    this.http.changeOrderStatus(JSON.parse(localStorage.getItem('last_order')).id, 'CANCELED').subscribe(
+      order => {
+        localStorage.removeItem('last_order');
+        this.router.navigate(['wizard']);
+      }
+    );
   }
 }
