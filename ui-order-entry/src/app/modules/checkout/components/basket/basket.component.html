@@ -1,25 +1,12 @@
-<div *ngIf="isLoading|async" class="parent-center">
-  <mat-spinner>
-  </mat-spinner>
+<div class="catalog-container" *ngIf="(orderItems) && (orderItems.length !== 0)">
+  <div class="offers">
+    <app-basket-elem *ngFor="let item of orderItems" [item]="item" [role]="this.role">
+    </app-basket-elem>
+  </div>
+  <div class="total-sum">
+    <h2>Total order sum {{totalSum}}rub</h2>
+  </div>
 </div>
-<div *ngIf="!(isLoading|async)">
-  <div class="catalog-container" *ngIf="(orderItems) && (orderItems.length !== 0)">
-    <div class="offers">
-      <app-basket-elem *ngFor="let item of orderItems" [item]="item" [role]="this.role">
-      </app-basket-elem>
-    </div>
-    <div class="total-sum">
-      <h2>Total order sum {{totalSum}}rub</h2>
-    </div>
-    <div *ngIf="(this.role === 'summary')" class="show-center">
-      <button mat-button matStepperNext>Next</button>
-    </div>
-    <div *ngIf="(this.role === 'confirmation')" class="show-center">
-      <button mat-button matStepperPrevious>Back</button>
-      <button mat-button class="confirm-button" (click)="confirmOrder()">Confirm Order</button>
-    </div>
-  </div>
-  <div *ngIf="!(orderItems) || (orderItems.length === 0)" class="empty-cart">
-    <h1>Your Shopping Cart is empty</h1>
-  </div>
+<div *ngIf="!(orderItems) || (orderItems.length === 0)" class="empty-cart">
+  <h1>Your Shopping Cart is empty</h1>
 </div>

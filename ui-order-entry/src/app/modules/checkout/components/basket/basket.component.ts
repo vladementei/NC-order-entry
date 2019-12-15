@@ -1,12 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {OrderItemModel} from '../../../../models/order-item.model';
-import {HttpService} from '../../../shared/services/http-service.service';
 import {RxUnsubscribe} from '../../../../classes/rx-unsubscribe';
-import {LoaderService} from '../../../../services/loader-service.service';
-import {Observable} from 'rxjs';
-import {takeUntil} from 'rxjs/operators';
-import {OrderModel} from '../../../../models/order.model';
-import {UpdateService} from '../../../shared/services/update-service.service';
 
 @Component({
   selector: 'app-basket',
@@ -14,45 +8,16 @@ import {UpdateService} from '../../../shared/services/update-service.service';
   styleUrls: ['./basket.component.less']
 })
 export class BasketComponent extends RxUnsubscribe implements OnInit {
+  @Input()
   orderItems: OrderItemModel[];
-  isLoading: Observable<boolean> = this.loaderService.isLoading;
+  @Input()
   totalSum = 0.0;
   @Input()
   role: string;
-  constructor(private http: HttpService, private loaderService: LoaderService, private updateService: UpdateService) {
+  constructor() {
     super();
     console.log(this.orderItems);
   }
   ngOnInit(): void {
-    this.isLoading.subscribe();
-    this.updateService.getMessageToUpdate()
-      .pipe(
-        takeUntil((this.destroy$))
-      )
-      .subscribe(value => {
-        if (value === true) {
-          this.reloadOrder();
-        }
-      });
-    this.reloadOrder();
-  }
-
-  reloadOrder(): void {
-    if (localStorage.getItem('last_order')) {
-      this.http.getOrderById(JSON.parse(localStorage.getItem('last_order')).id)
-        .pipe(
-          takeUntil((this.destroy$))
-        )
-        .subscribe(
-          (order: OrderModel) => {
-            this.orderItems = order.orderItems;
-            this.totalSum = this.orderItems.reduce((curSum, orderItem) => curSum + orderItem.price, 0);
-          }
-        );
-    }
-  }
-
-  confirmOrder() {
-    console.log('confirm order');
   }
 }

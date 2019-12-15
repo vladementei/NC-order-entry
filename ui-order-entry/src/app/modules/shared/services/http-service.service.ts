@@ -68,5 +68,19 @@ export class HttpService {
   getOrderById(orderId: number): Observable<OrderModel> {
     return this.http.get<OrderModel>(`/processor/api/v1/processor/orders/${orderId}`);
   }
+  changeOrderStatus(orderId: number, orderStatus: string): Observable<OrderModel> {
+    return this.http.put<OrderModel>(`/processor/api/v1/processor/orders/${orderId}/order-status`, orderStatus);
+  }
+
+  changeDeliveyAddress(orderId: number, address: string): Observable<OrderModel> {
+    return this.http.put<OrderModel>(`/processor/api/v1/processor/orders/${orderId}/address`, address);
+  }
+
+  changeContactNumber(orderId: number, contactNumber: string): Observable<OrderModel> {
+    return this.http.put<OrderModel>(`/processor/api/v1/processor/orders/${orderId}/contact-number`, contactNumber);
+  }
+  changePaymentType(orderId: number, paymentType: string): Observable<OrderModel> {
+    return this.http.put<OrderModel>(`/processor/api/v1/processor/orders/${orderId}/payment-type`, paymentType);
+  }
 }
 
