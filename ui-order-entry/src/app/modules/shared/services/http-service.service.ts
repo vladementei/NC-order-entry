@@ -68,6 +68,9 @@ export class HttpService {
   getOrderById(orderId: number): Observable<OrderModel> {
     return this.http.get<OrderModel>(`/processor/api/v1/processor/orders/${orderId}`);
   }
+  getNumOrderItemsInOrder(orderId: number): Observable<number> {
+    return this.http.get<number>(`/processor/api/v1/processor/orders/${orderId}/length`);
+  }
   changeOrderStatus(orderId: number, orderStatus: string): Observable<OrderModel> {
     return this.http.put<OrderModel>(`/processor/api/v1/processor/orders/${orderId}/order-status`, orderStatus);
   }

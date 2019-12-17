@@ -32,13 +32,11 @@ export class BasketElementComponent implements OnInit {
   }
   deleteItem() {
     console.log('delete item' + this.item.id);
-    this.http.deleteOrderItemFromOrder(JSON.parse(localStorage.getItem('last_order')).id, this.item.id).subscribe(() => {
-      const order = JSON.parse(localStorage.getItem('last_order'));
-      order.numItems--;
-      localStorage.setItem('last_order', JSON.stringify(order));
+    this.http.deleteOrderItemFromOrder(JSON.parse(localStorage.getItem('last_order')).id, this.item.id).subscribe(order => {
+      localStorage.setItem('last_order', JSON.stringify({id: order.id, numItems: order.orderItems.length}));
       this.showDeleteFromBasketNotification();
       this.updateService.sendMessageToUpdate(true);
-      this.numberItemsService.sendNewNumber(order.numItems);
+      this.numberItemsService.sendNewNumber(order.orderItems.length);
       console.log('deleted');
     });
   }
