@@ -8,6 +8,9 @@ import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {AuthInterceptor} from './interceptors/auth-interceptor.interceptor';
 import {LoaderService} from './services/loader-service.service';
 import {LoaderInterceptor} from './interceptors/loader.interceptor';
+import {MatDialogModule} from '@angular/material';
+import {DialogComponent} from './components/dialog/dialog.component';
+import {SharedModule} from './modules/shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -18,6 +21,8 @@ import {LoaderInterceptor} from './interceptors/loader.interceptor';
     AppRoutingModule,
     BrowserAnimationsModule,
     HttpClientModule,
+    MatDialogModule,
+    SharedModule
   ],
   providers: [
     {
@@ -32,6 +37,7 @@ import {LoaderInterceptor} from './interceptors/loader.interceptor';
       multi: true
     }
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [DialogComponent]
 })
 export class AppModule { }
