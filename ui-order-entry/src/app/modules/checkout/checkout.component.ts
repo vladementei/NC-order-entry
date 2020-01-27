@@ -82,22 +82,37 @@ export class CheckoutComponent extends RxUnsubscribe implements OnInit {
         paymentType = 'CREDIT_CARD';
         break;
     }
-    const responseAddress = this.http.changeDeliveryAddress(orderId, this.deliveryForm.get('address').value);
-    const responsePhone = this.http.changeContactNumber(orderId, this.deliveryForm.get('phone').value);
-    const responsePayment = this.http.changePaymentType(orderId, paymentType);
-    forkJoin([responseAddress, responsePhone, responsePayment]).subscribe(
-      order =>  this.http.changeOrderStatus(orderId, 'CONFIRMED').subscribe(
-        confirmedOrder => {
-          this.dialog.open(DialogComponent, {
-            data: {message: 'Order successfully confirmed', type: DialogType.success}
-          }).afterClosed().subscribe(() => {
-            localStorage.removeItem('last_order');
-            this.router.navigate(['wizard']);
-          });
-        }
+    // const responseAddress = this.http.changeDeliveryAddress(orderId, this.deliveryForm.get('address').value);
+    // const responsePhone = this.http.changeContactNumber(orderId, this.deliveryForm.get('phone').value);
+    // const responsePayment = this.http.changePaymentType(orderId, paymentType);
+    // forkJoin([responseAddress, responsePhone, responsePayment]).subscribe(
+    //   order =>  this.http.changeOrderStatus(orderId, 'CONFIRMED').subscribe(
+    //     confirmedOrder => {
+    //       this.dialog.open(DialogComponent, {
+    //         data: {message: 'Order successfully confirmed', type: DialogType.success}
+    //       }).afterClosed().subscribe(() => {
+    //         localStorage.removeItem('last_order');
+    //         this.router.navigate(['wizard']);
+    //       });
+    //     }
+    //   )
+    // );
+    this.http.changeDeliveryAddress(orderId, this.deliveryForm.get('address').value).subscribe(
+      addressResp => this.http.changeContactNumber(orderId, this.deliveryForm.get('phone').value).subscribe(
+        phoneResp => this.http.changePaymentType(orderId, paymentType).subscribe(
+          typeResp => this.http.changeOrderStatus(orderId, 'CONFIRMED').subscribe(
+            confirmedOrder => {
+              this.dialog.open(DialogComponent, {
+                data: {message: 'Order successfully confirmed', type: DialogType.success}
+              }).afterClosed().subscribe(() => {
+                localStorage.removeItem('last_order');
+                this.router.navigate(['wizard']);
+              });
+            }
+          )
+        )
       )
     );
-    console.log(this.deliveryForm.get('paymentType').value);
   }
   cancelOrder() {
     console.log('cancel');

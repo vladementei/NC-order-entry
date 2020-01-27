@@ -30,6 +30,9 @@ export class OfferDialogComponent implements OnInit {
   ngOnInit(): void {
     this.offer = {id: this.model.id, title: this.model.title, description: this.model.description,
       price: this.model.price, photo: this.model.photo, category: this.model.category};
+    this.initForm();
+  }
+  private initForm() {
     this.offerFormGroup = this.formBuilder.group({
       title: this.formBuilder.control(this.offer.title, [Validators.required]),
       photo: this.formBuilder.control(this.offer.photo, [Validators.required]),

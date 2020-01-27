@@ -27,18 +27,26 @@ export class AuthFormService {
   }
   loginUser(user: UserModel): Promise<any> {
     return  new Promise((resolve, reject) => {
-      this.http.get<UserModel>(`/shop/api/v1/customers/${user.email}`).subscribe(
+      // this.http.get<UserModel>(`/shop/api/v1/customers/${user.email}`).subscribe(
+      //   result => {
+      //     if (result.password === user.password) {
+      //       resolve(result);
+      //     } else {
+      //       reject('Wrong password');
+      //     }
+      //   },
+      //   error => {
+      //     reject(`No user with email ${user.email}`);
+      //     }
+      //   );
+      this.http.get<UserModel>(`/shop/api/v1/customers/login?email=${user.email}&password=${user.password}`).subscribe(
         result => {
-          if (result.password === user.password) {
-            resolve(result);
-          } else {
-            reject('Wrong password');
-          }
+          resolve(result);
         },
         error => {
-          reject(`No user with email ${user.email}`);
-          }
-        );
+          reject(`Your email or password is incorrect.`);
+        }
+      );
     });
   }
 
